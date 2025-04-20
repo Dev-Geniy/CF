@@ -13,12 +13,14 @@ const grid = document.getElementById('client-grid');
 const sidebar = document.getElementById('sidebar');
 const modal = document.getElementById('client-modal');
 const confirmModal = document.getElementById('confirm-delete-modal');
-const bulkDeleteModal = document.getElementById('bulk-delete-modal'); // New modal for bulk deletion
+const bulkDeleteModal = document.getElementById('bulk-delete-modal');
 const notification = document.getElementById('notification');
 let clients = JSON.parse(localStorage.getItem('clients')) || [];
 let chartInstance = null;
 let deleteIndex = null;
 let selectedClients = new Set();
+let currentPage = 0;
+const clientsPerPage = 10;
 
 // Utility functions
 function escapeHtml(text) {
@@ -82,6 +84,7 @@ if (localStorage.getItem('animations') === 'false') {
 // Card layout
 const cardLayout = document.getElementById('card-layout');
 cardLayout.addEventListener('change', () => {
+  currentPage = 0; // Сбрасываем страницу при смене вида карточек
   renderClients(document.querySelector('.filter-btn.active').id.replace('filter-', ''));
   localStorage.setItem('cardLayout', cardLayout.value);
 });
@@ -89,7 +92,11 @@ if (localStorage.getItem('cardLayout')) cardLayout.value = localStorage.getItem(
 
 // Render clients
 function renderClients(filter = 'all', tagFilter = '', dateStart = '', dateEnd = '') {
-  grid.innerHTML = '';
+  // Очищаем сетку только при первой странице или изменении фильтров
+  if (currentPage === 0) {
+    grid.innerHTML = '';
+  }
+
   let filteredClients = clients.filter(c => {
     const matchesFilter = filter === 'all' || c.status === filter || (filter === 'favorite' && c.favorite);
     const matchesTag = !tagFilter || c.tags?.some(t => t.toLowerCase().includes(tagFilter.toLowerCase()));
@@ -107,11 +114,18 @@ function renderClients(filter = 'all', tagFilter = '', dateStart = '', dateEnd =
     );
   }
 
-  filteredClients.forEach((client, index) => {
+  // Вычисляем индексы для текущей страницы
+  const startIndex = currentPage * clientsPerPage;
+  const endIndex = Math.min(startIndex + clientsPerPage, filteredClients.length);
+  const clientsToRender = filteredClients.slice(startIndex, endIndex);
+
+  // Рендерим клиентов для текущей страницы
+  clientsToRender.forEach((client, index) => {
+    const globalIndex = startIndex + index; // Глобальный индекс клиента в filteredClients
     const card = document.createElement('div');
     card.classList.add('client-card', client.status);
     if (client.favorite) card.classList.add('favorite');
-    if (selectedClients.has(index)) card.classList.add('selected');
+    if (selectedClients.has(globalIndex)) card.classList.add('selected');
     card.setAttribute('role', 'gridcell');
     card.setAttribute('tabindex', '0');
 
@@ -121,20 +135,20 @@ function renderClients(filter = 'all', tagFilter = '', dateStart = '', dateEnd =
       card.classList.add('compact');
       card.innerHTML = `
         <div class="checkbox">
-          <input type="checkbox" ${selectedClients.has(index) ? 'checked' : ''} aria-label="Выбрать клиента">
+          <input type="checkbox" ${selectedClients.has(globalIndex) ? 'checked' : ''} aria-label="Выбрать клиента">
         </div>
         <h3>${escapeHtml(client.name)}</h3>
         ${client.company ? `<p>${escapeHtml(client.company)}</p>` : ''}
         ${client.tags?.length ? `<div class="tags"><span class="tag">#${escapeHtml(client.tags[0])}</span></div>` : ''}
         <div class="actions">
-          <button onclick="editClient(${index})" title="Редактировать клиента" aria-label="Редактировать клиента"><span class="material-icons">edit</span></button>
-          <button onclick="showConfirmDelete(${index})" title="Удалить клиента" aria-label="Удалить клиента"><span class="material-icons">delete</span></button>
+          <button onclick="editClient(${globalIndex})" title="Редактировать клиента" aria-label="Редактировать клиента"><span class="material-icons">edit</span></button>
+          <button onclick="showConfirmDelete(${globalIndex})" title="Удалить клиента" aria-label="Удалить клиента"><span class="material-icons">delete</span></button>
         </div>
       `;
     } else {
       card.innerHTML = `
         <div class="checkbox">
-          <input type="checkbox" ${selectedClients.has(index) ? 'checked' : ''} aria-label="Выбрать клиента">
+          <input type="checkbox" ${selectedClients.has(globalIndex) ? 'checked' : ''} aria-label="Выбрать клиента">
         </div>
         <h3>${escapeHtml(client.name)}</h3>
         ${client.company ? `<p>${escapeHtml(client.company)}</p>` : ''}
@@ -146,8 +160,8 @@ function renderClients(filter = 'all', tagFilter = '', dateStart = '', dateEnd =
         ${progress !== null ? `<div class="deadline-progress ${progress >= 100 ? 'expired' : ''}" style="width: ${Math.min(progress, 100)}%;" title="Дедлайн: ${new Date(client.deadline).toLocaleString()}"></div>` : ''}
         <div class="status-indicator"></div>
         <div class="actions">
-          <button onclick="editClient(${index})" title="Редактировать клиента" aria-label="Редактировать клиента"><span class="material-icons">edit</span></button>
-          <button onclick="showConfirmDelete(${index})" title="Удалить клиента" aria-label="Удалить клиента"><span class="material-icons">delete</span></button>
+          <button onclick="editClient(${globalIndex})" title="Редактировать клиента" aria-label="Редактировать клиента"><span class="material-icons">edit</span></button>
+          <button onclick="showConfirmDelete(${globalIndex})" title="Удалить клиента" aria-label="Удалить клиента"><span class="material-icons">delete</span></button>
         </div>
       `;
     }
@@ -161,6 +175,25 @@ function renderClients(filter = 'all', tagFilter = '', dateStart = '', dateEnd =
       }
     });
   });
+
+  // Добавляем кнопку "Загрузить ещё", если есть ещё клиенты
+  const existingLoadMoreButton = document.getElementById('load-more');
+  if (existingLoadMoreButton) {
+    existingLoadMoreButton.remove();
+  }
+
+  if (endIndex < filteredClients.length) {
+    const loadMoreButton = document.createElement('button');
+    loadMoreButton.id = 'load-more';
+    loadMoreButton.classList.add('btn', 'gradient-btn');
+    loadMoreButton.innerHTML = '<span class="material-icons">expand_more</span> Загрузить ещё';
+    loadMoreButton.addEventListener('click', () => {
+      currentPage++;
+      renderClients(filter, tagFilter, dateStart, dateEnd);
+    });
+    grid.appendChild(loadMoreButton);
+  }
+
   updateStats();
   updateChart();
   updateBulkActions();
@@ -174,11 +207,9 @@ document.getElementById('bulk-actions').addEventListener('click', () => {
     bulkButton.classList.add('gradient-btn');
   } else {
     if (selectedClients.size > 0) {
-      // Show the bulk delete confirmation modal instead of using confirm()
       bulkDeleteModal.style.display = 'flex';
       trapFocus(bulkDeleteModal);
     } else {
-      // Reset the button if no clients are selected
       bulkButton.innerHTML = '<span class="material-icons">select_all</span> Выбрать';
       bulkButton.classList.remove('gradient-btn');
     }
@@ -194,6 +225,7 @@ document.getElementById('bulk-delete-ok').addEventListener('click', () => {
   clients = clients.filter((_, index) => !selectedClients.has(index));
   localStorage.setItem('clients', JSON.stringify(clients));
   selectedClients.clear();
+  currentPage = 0; // Сбрасываем страницу
   renderClients(document.querySelector('.filter-btn.active').id.replace('filter-', ''));
   showNotification('Выбранные клиенты удалены');
   bulkDeleteModal.style.display = 'none';
@@ -230,6 +262,8 @@ async function initSortable() {
       clients.splice(evt.newIndex, 0, moved);
       localStorage.setItem('clients', JSON.stringify(clients));
       selectedClients.clear();
+      currentPage = 0; // Сбрасываем страницу
+      renderClients(document.querySelector('.filter-btn.active').id.replace('filter-', ''));
       updateBulkActions();
     }
   });
@@ -289,8 +323,8 @@ document.getElementById('phones-container').addEventListener('click', (e) => {
 
 // Form submission
 document.getElementById('client-form').addEventListener('submit', (e) => {
-  e.preventDefault(); // Предотвращаем стандартное поведение формы
-  console.log('Форма отправлена'); // Отладка: проверяем, срабатывает ли событие
+  e.preventDefault();
+  console.log('Форма отправлена');
 
   const phones = Array.from(document.querySelectorAll('#phones-container input[name="phone"]'))
     .map(input => input.value.trim())
@@ -299,19 +333,17 @@ document.getElementById('client-form').addEventListener('submit', (e) => {
   const social = document.getElementById('social').value.trim();
   const website = document.getElementById('website').value.trim();
 
-  // Валидация
   if (social && !isValidUrl(social)) {
     showNotification('Некорректный URL соцсети');
-    console.log('Ошибка валидации: social URL'); // Отладка
+    console.log('Ошибка валидации: social URL');
     return;
   }
   if (website && !isValidUrl(website)) {
     showNotification('Некорректный URL сайта');
-    console.log('Ошибка валидации: website URL'); // Отладка
+    console.log('Ошибка валидации: website URL');
     return;
   }
 
-  // Собираем данные клиента
   const data = {
     name: document.getElementById('name').value.trim(),
     company: document.getElementById('company').value.trim(),
@@ -328,22 +360,19 @@ document.getElementById('client-form').addEventListener('submit', (e) => {
     createdAt: new Date().toISOString()
   };
 
-  console.log('Данные клиента:', data); // Отладка: проверяем собранные данные
+  console.log('Данные клиента:', data);
 
-  // Сохранение
   const index = e.target.dataset.index;
   if (index !== '') {
-    clients[index] = data; // Обновляем существующего клиента
+    clients[index] = data;
     console.log('Клиент обновлён, индекс:', index);
   } else {
-    clients.push(data); // Добавляем нового клиента
+    clients.push(data);
     console.log('Новый клиент добавлен');
   }
 
-  // Сортировка по приоритету
   clients.sort((a, b) => (b.priority || 0) - (a.priority || 0));
 
-  // Сохранение в localStorage
   try {
     localStorage.setItem('clients', JSON.stringify(clients));
     console.log('Клиенты сохранены в localStorage:', clients);
@@ -353,7 +382,7 @@ document.getElementById('client-form').addEventListener('submit', (e) => {
     return;
   }
 
-  // Обновляем интерфейс
+  currentPage = 0; // Сбрасываем страницу
   renderClients(document.querySelector('.filter-btn.active').id.replace('filter-', ''));
   modal.style.display = 'none';
   showNotification('Клиент сохранён');
@@ -406,6 +435,7 @@ document.getElementById('confirm-delete-ok').addEventListener('click', () => {
   if (deleteIndex !== null) {
     clients.splice(deleteIndex, 1);
     localStorage.setItem('clients', JSON.stringify(clients));
+    currentPage = 0; // Сбрасываем страницу
     renderClients(document.querySelector('.filter-btn.active').id.replace('filter-', ''));
     showNotification('Клиент удалён');
     confirmModal.style.display = 'none';
@@ -418,6 +448,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    currentPage = 0; // Сбрасываем страницу
     renderClients(btn.id.replace('filter-', ''), 
                  document.getElementById('tag-filter').value, 
                  document.getElementById('date-filter-start').value,
@@ -426,6 +457,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 document.getElementById('tag-filter').addEventListener('input', (e) => {
+  currentPage = 0; // Сбрасываем страницу
   renderClients(document.querySelector('.filter-btn.active').id.replace('filter-', ''), 
                e.target.value, 
                document.getElementById('date-filter-start').value,
@@ -433,6 +465,7 @@ document.getElementById('tag-filter').addEventListener('input', (e) => {
 });
 
 document.getElementById('date-filter-start').addEventListener('change', (e) => {
+  currentPage = 0; // Сбрасываем страницу
   renderClients(document.querySelector('.filter-btn.active').id.replace('filter-', ''), 
                document.getElementById('tag-filter').value, 
                e.target.value,
@@ -440,6 +473,7 @@ document.getElementById('date-filter-start').addEventListener('change', (e) => {
 });
 
 document.getElementById('date-filter-end').addEventListener('change', (e) => {
+  currentPage = 0; // Сбрасываем страницу
   renderClients(document.querySelector('.filter-btn.active').id.replace('filter-', ''), 
                document.getElementById('tag-filter').value, 
                document.getElementById('date-filter-start').value,
@@ -448,6 +482,7 @@ document.getElementById('date-filter-end').addEventListener('change', (e) => {
 
 // Search
 document.getElementById('search').addEventListener('input', () => {
+  currentPage = 0; // Сбрасываем страницу
   renderClients(document.querySelector('.filter-btn.active').id.replace('filter-', ''), 
                document.getElementById('tag-filter').value, 
                document.getElementById('date-filter-start').value,
@@ -558,6 +593,7 @@ document.getElementById('import-btn').addEventListener('click', () => {
         }).filter(c => c.name);
 
         localStorage.setItem('clients', JSON.stringify(clients));
+        currentPage = 0; // Сбрасываем страницу
         renderClients();
         showNotification('Данные импортированы');
       } catch (error) {
@@ -707,45 +743,31 @@ if ('serviceWorker' in navigator) {
 }
 
 // Футер - - - - - - - - - - - -
-// Set current year in copyright notice
 document.getElementById('current-year').textContent = new Date().getFullYear();
 
-// Back to Top button
 document.getElementById('back-to-top').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// Modal handling function
 function openModal(modalId) {
   const modal = document.getElementById(modalId);
   const modalContent = modal.querySelector('.modal-content');
-  
-  // Show the modal
   modal.style.display = 'flex';
-  
-  // Scroll to the top of the modal content
   modalContent.scrollTo({ top: 0, behavior: 'smooth' });
-  
-  // Focus on the modal content for accessibility
   modalContent.focus();
-  
-  // Trap focus inside the modal
   trapFocus(modal);
 }
 
-// Close modal function
 function closeModal(modal) {
   modal.style.display = 'none';
 }
 
-// Close modal buttons
 document.querySelectorAll('.modal .close').forEach(closeBtn => {
   closeBtn.addEventListener('click', () => {
     closeModal(closeBtn.closest('.modal'));
   });
 });
 
-// Feedback modal
 document.querySelector('.feedback-link').addEventListener('click', (e) => {
   e.preventDefault();
   openModal('feedback-modal');
@@ -762,7 +784,6 @@ document.getElementById('feedback-form').addEventListener('submit', (e) => {
   e.target.reset();
 });
 
-// Bug report modal
 document.querySelector('.bug-report-link').addEventListener('click', (e) => {
   e.preventDefault();
   openModal('bug-report-modal');
@@ -779,50 +800,43 @@ document.getElementById('bug-report-form').addEventListener('submit', (e) => {
   e.target.reset();
 });
 
-// Features modal
 document.querySelector('.features-link').addEventListener('click', (e) => {
   e.preventDefault();
   openModal('features-modal');
 });
 
-// Support modal
 document.querySelector('.support-link').addEventListener('click', (e) => {
   e.preventDefault();
   openModal('support-modal');
 });
 
-// Contact modal
 document.querySelector('.contact-link').addEventListener('click', (e) => {
   e.preventDefault();
   openModal('contact-modal');
 });
 
-// Privacy modal
 document.querySelector('.privacy-link').addEventListener('click', (e) => {
   e.preventDefault();
   openModal('privacy-modal');
 });
 
-// Terms modal
 document.querySelector('.terms-link').addEventListener('click', (e) => {
   e.preventDefault();
   openModal('terms-modal');
 });
 
-// Cookies modal
 document.querySelector('.cookies-link').addEventListener('click', (e) => {
   e.preventDefault();
   openModal('cookies-modal');
 });
 
-// Changelog modal
 document.querySelector('.changelog-btn').addEventListener('click', () => {
   openModal('changelog-modal');
 });
 
 document.querySelector('#client-form button[type="submit"]').addEventListener('click', (e) => {
-  e.preventDefault(); // Предотвращаем двойное срабатывание, если submit уже работает
-  document.getElementById('client-form').dispatchEvent(new Event('submit')); // Программно вызываем submit
+  e.preventDefault();
+  document.getElementById('client-form').dispatchEvent(new Event('submit'));
 });
 
 // ВРЕМЕННАЯ ПРОВЕРКА ЛОКАЛ СТОРЕДЖ
