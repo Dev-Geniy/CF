@@ -1,0 +1,479 @@
+<DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Flow — Простая CRM для управления клиентами</title>
+    <meta name="description" content="Бесплатное веб-приложение для управления клиентами с заметками, тегами, фильтрами и экспортом в CSV. Простая CRM для малого бизнеса.">
+    <meta name="keywords" content="CRM, управление клиентами, автоматизация, малый бизнес, Client Flow">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Client Flow - Простая CRM для клиентов">
+    <meta property="og:description" content="Управляйте клиентами легко: заметки, теги, экспорт в CSV. Бесплатно и онлайн!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dev-geniy.github.io/Client-Flow/cf.html">
+    <meta property="og:image" content="https://i.ibb.co/20SftRtp/your-free-guide-is-here-1.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Client Flow - Простая CRM">
+    <meta name="twitter:description" content="Бесплатное приложение для управления клиентами с заметками и экспортом.">
+    <meta name="twitter:image" content="https://i.ibb.co/20SftRtp/your-free-guide-is-here-1.png">
+    <!-- Фавикон -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="landing-styles.css">
+    <!-- Микроразметка Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Client Flow",
+        "description": "Бесплатная CRM-система для малого бизнеса и фрилансеров.",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": "Анна",
+                "reviewBody": "Client Flow сэкономил мне 5 часов в неделю!",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                }
+            }
+        ]
+    }
+    </script>
+</head>
+<body class="landing-body"> 
+  
+  <!-- Хедер с логотипом и слоганом -->
+<header class="landing-header">
+    <div class="logo">
+        <span class="gradient-text">Client Flow</span>
+        <span class="version">v1.3 Beta</span>
+    </div>
+    <span class="slogan">Управляйте клиентами с легкостью!</span>
+    <div class="theme-toggle">
+        <span class="material-icons theme-icon">brightness_4</span>
+    </div>
+    <button class="landing-cta-top-btn" data-action="open-form">Начни сейчас</button>
+</header>
+  
+    <!-- Основной контент лендинга -->
+    <div id="landing-content">
+      
+<!-- Hero-секция с видео -->
+<section id="landing-hero-section" class="landing-hero-section">
+    <div class="landing-hero-content">
+        <h1 class="landing-hero-title">Client Flow — Ваш ключ к эффективному управлению клиентами</h1>
+        <p class="landing-hero-subtitle">Бесплатная CRM для малого бизнеса и фрилансеров: заметки, теги, фильтры, дедлайны и экспорт в CSV. Начните прямо сейчас и сэкономьте до 5 часов в неделю!</p>
+        <div class="landing-hero-actions">
+            <button class="landing-cta-btn" data-action="open-form">Начани прямо сейчас!</button>
+            <a href="#landing-features-section" class="landing-scroll-link">Узнать больше <span class="material-icons">arrow_downward</span></a>
+        </div>
+    </div>
+    <div class="landing-hero-visual">
+        <div class="landing-video-wrapper">
+            <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1077002739?h=3620af9198&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Client Follow free CRM!"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+        </div>
+    </div>
+</section>
+
+       <!-- Преимущества с визуальной поддержкой -->
+        <section id="landing-benefits-section" class="landing-benefits-section">
+            <h2 class="landing-section-title">Почему Client Flow — это то, что нужно именно вам и вашему бизнесу</h2>
+            <div class="landing-benefits-grid">
+                <div class="landing-benefit-card">
+                    <div class="landing-benefit-icon-wrapper">
+                        <span class="material-icons">schedule</span>
+                    </div>
+                    <h3 class="landing-benefit-title">Экономия времени</h3>
+                    <p class="landing-benefit-desc">Автоматизируйте рутину и сэкономьте до 5 часов в неделю на управлении клиентами.</p>
+                </div>
+                <div class="landing-benefit-card">
+                    <div class="landing-benefit-icon-wrapper">
+                        <span class="material-icons">security</span>
+                    </div>
+                    <h3 class="landing-benefit-title">Максимальная безопасность</h3>
+                    <p class="landing-benefit-desc">Данные хранятся локально на вашем устройстве, без риска утечек.</p>
+                </div>
+                <div class="landing-benefit-card">
+                    <div class="landing-benefit-icon-wrapper">
+                        <span class="material-icons">tune</span>
+                    </div>
+                    <h3 class="landing-benefit-title">Гибкость и контроль</h3>
+                    <p class="landing-benefit-desc">Фильтры, теги и экспорт в CSV для удобной работы с данными.</p>
+                </div>
+                <div class="landing-benefit-card">
+                    <div class="landing-benefit-icon-wrapper">
+                        <span class="material-icons">palette</span>
+                    </div>
+                    <h3 class="landing-benefit-title">Персонализация</h3>
+                    <p class="landing-benefit-desc">Светлая или темная тема, компактный или детальный вид карточек.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция функций с акцентом на визуализацию -->
+        <section id="landing-features-section" class="landing-features-section">
+            <h2 class="landing-section-title">Всё, что нужно для управления клиентами</h2>
+            <div class="landing-features-grid">
+                <div class="landing-feature-card">
+                    <span class="material-icons landing-feature-icon">person_add</span>
+                    <h3 class="landing-feature-title">Управление клиентами</h3>
+                    <p class="landing-feature-desc">Создавайте карточки клиентов с полной информацией: имена, компании, контакты, статус.</p>
+                    <img src="https://i.ibb.co/RGPvmWf5/2025-04-19-225356.png" alt="Скриншот списка клиентов" class="landing-feature-screenshot">
+                </div>
+                <div class="landing-feature-card">
+                    <span class="material-icons landing-feature-icon">notes</span>
+                    <h3 class="landing-feature-title">Заметки и теги</h3>
+                    <p class="landing-feature-desc">Добавляйте заметки и теги для быстрой организации данных.</p>
+                    <img src="https://i.ibb.co/0y7NqjDv/2025-04-19-224607.png" alt="Скриншот заметок" class="landing-feature-screenshot">
+                </div>
+                <div class="landing-feature-card">
+                    <span class="material-icons landing-feature-icon">filter_list</span>
+                    <h3 class="landing-feature-title">Умная фильтрация</h3>
+                    <p class="landing-feature-desc">Находите клиентов по статусу, тегам или датам в один клик.</p>
+                    <img src="https://i.ibb.co/YTf2XLFm/2025-04-19-230224.png" alt="Скриншот фильтров" class="landing-feature-screenshot">
+                </div>
+                <div class="landing-feature-card">
+                    <span class="material-icons landing-feature-icon">event</span>
+                    <h3 class="landing-feature-title">Дедлайны и напоминания</h3>
+                    <p class="landing-feature-desc">Устанавливайте дедлайны и никогда не пропускайте важные задачи.</p>
+                    <img src="https://i.ibb.co/FLJYvy77/2025-04-19-230659.png" alt="Скриншот дедлайнов" class="landing-feature-screenshot">
+                </div>
+                <div class="landing-feature-card">
+                    <span class="material-icons landing-feature-icon">download</span>
+                    <h3 class="landing-feature-title">Экспорт и импорт</h3>
+                    <p class="landing-feature-desc">Сохраняйте данные в CSV или переносите их в другие системы.</p>
+                    <img src="https://i.ibb.co/yFSwXXJZ/2025-04-19-23184512.png" alt="Скриншот экспорта" class="landing-feature-screenshot">
+                </div>
+                <div class="landing-feature-card">
+                    <span class="material-icons landing-feature-icon">trending_up</span>
+                    <h3 class="landing-feature-title">График роста</h3>
+                    <p class="landing-feature-desc">Отслеживайте рост клиентской базы с помощью интерактивного графика.</p>
+                    <img src="https://i.ibb.co/BkpmnTY/2025-04-19-231845.png" alt="Скриншот графика" class="landing-feature-screenshot">
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция "Как это работает" -->
+        <section id="landing-how-it-works-section" class="landing-how-it-works-section">
+            <h2 class="landing-section-title">Как начать работу за 3 шага</h2>
+            <div class="landing-how-it-works-grid">
+                <div class="landing-how-it-works-step">
+                    <div class="landing-step-number">1</div>
+                    <h3 class="landing-step-title">Добавьте клиентов</h3>
+                    <p class="landing-step-desc">Создайте карточки с данными клиентов за пару кликов.</p>
+                </div>
+                <div class="landing-how-it-works-step">
+                    <div class="landing-step-number">2</div>
+                    <h3 class="landing-step-title">Организуйте данные</h3>
+                    <p class="landing-step-desc">Используйте теги, заметки и фильтры для порядка.</p>
+                </div>
+                <div class="landing-how-it-works-step">
+                    <div class="landing-step-number">3</div>
+                    <h3 class="landing-step-title">Управляйте эффективно</h3>
+                    <p class="landing-step-desc">Следите за дедлайнами и экспортируйте данные.</p>
+                </div>
+            </div>
+            <button class="landing-secondary-cta-btn">Начать прямо сейчас!</button>
+        </section>
+
+        <!-- Секция отзывов -->
+        <section id="landing-testimonials-section" class="landing-testimonials-section">
+            <h2 class="landing-section-title">Что говорят наши пользователи</h2>
+            <div class="landing-testimonials-carousel">
+                <div class="landing-testimonial-card">
+                    <p class="landing-testimonial-text">"Client Flow сэкономил мне 5 часов в неделю! Теперь вся рутина автоматизирована."</p>
+                    <div class="landing-testimonial-author">
+                        <img src="https://i.ibb.co/sfGdLGH/image.jpg" alt="Аватар Анны" class="landing-testimonial-avatar">
+                        <div>
+                            <h4>Анна</h4>
+                            <p>Фрилансер</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="landing-testimonial-card">
+                    <p class="landing-testimonial-text">"Удобный инструмент для управления клиентами. Мой бизнес стал организованнее."</p>
+                    <div class="landing-testimonial-author">
+                        <img src="https://i.ibb.co/zwBw1FS/2025-04-19-214100.png" alt="Аватар Игоря" class="landing-testimonial-avatar">
+                        <div>
+                            <h4>Игорь</h4>
+                            <p>Владелец малого бизнеса</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="landing-testimonial-card">
+                    <p class="landing-testimonial-text">"Интеграция с Telegram и экспорт в CSV — это находка. Всё в одном месте!"</p>
+                    <div class="landing-testimonial-author">
+                        <img src="https://i.ibb.co/DgzfJgkB/2025-04-19-214608.png" alt="Аватар Марии" class="landing-testimonial-avatar">
+                        <div>
+                            <h4>Мария</h4>
+                            <p>Менеджер</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="landing-carousel-controls">
+                <button class="landing-carousel-prev"><span class="material-icons">chevron_left</span></button>
+                <button class="landing-carousel-next"><span class="material-icons">chevron_right</span></button>
+            </div>
+        </section>
+
+        <!-- Секция статистики -->
+        <section id="landing-stats-section" class="landing-stats-section">
+            <h2 class="landing-section-title">Client Flow в цифрах</h2>
+            <div class="landing-stats-grid">
+                <div class="landing-stat-item">
+                    <h3 class="landing-stat-number">5 часов</h3>
+                    <p class="landing-stat-desc">Экономии в неделю для каждого пользователя</p>
+                </div>
+                <div class="landing-stat-item">
+                    <h3 class="landing-stat-number">100%</h3>
+                    <p class="landing-stat-desc">Безопасность данных с локальным хранением</p>
+                </div>
+                <div class="landing-stat-item">
+                    <h3 class="landing-stat-number">2025</h3>
+                    <p class="landing-stat-desc">Год запуска проекта для малого бизнеса</p>
+                </div>
+                              <div class="landing-stat-item">
+                    <h3 class="landing-stat-number">0 Free</h3>
+                    <p class="landing-stat-desc">Бесплатная CRM система навсегда</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция интеграций -->
+        <section id="landing-integrations-section" class="landing-integrations-section">
+            <h2 class="landing-section-title">Интеграции для удобной работы</h2>
+            <p class="landing-integrations-desc">Работайте с привычными инструментами без лишних переключений.</p>
+            <div class="landing-integrations-grid">
+                <div class="landing-integration-item">
+                    <img src="https://cdn-icons-png.flaticon.com/128/5968/5968534.png" alt="Иконка Gmail" class="landing-integration-icon">
+                    <p>Gmail - отправка сообщений клиентам</p>
+                </div>
+                <div class="landing-integration-item">
+                    <img src="https://cdn-icons-png.flaticon.com/128/5968/5968499.png" alt="Иконка Google Calendar" class="landing-integration-icon">
+                    <p>Google Calendar - установка дедлайнов и напоминаний</p>
+                </div>
+                    <div class="landing-integration-item">
+        <img src="https://static.vecteezy.com/system/resources/previews/012/871/368/non_2x/google-drive-icon-google-product-illustration-free-png.png" alt="Иконка Google Drive" class="landing-integration-icon">
+        <p>Google Drive - сохраняйте и загружайте базы с клиентами</p>
+    </div>
+                <div class="landing-integration-item">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3536/3536661.png" alt="Иконка Telegram" class="landing-integration-icon">
+                    <p>Telegram - отправка сообщений клиентам</p>
+                </div>
+             <div class="landing-integration-item">
+        <img src="https://cdn-icons-png.flaticon.com/128/2111/2111656.png" alt="Иконка Trello" class="landing-integration-icon">
+        <p>Trello - добавление клиентской информации на доски</p>
+              </div>
+              <div class="landing-integration-item">
+        <img src="https://cdn-icons-png.flaticon.com/128/5968/5968879.png" alt="Иконка Mailchimp" class="landing-integration-icon">
+        <p>Mailchimp - почтовые рассылки клиентам</p>
+              </div>
+            </div>
+        </section>
+
+        <!-- Секция истории обновлений -->
+        <section id="landing-changelog-section" class="landing-changelog-section">
+            <h2 class="landing-section-title">Мы постоянно улучшаем Client Flow</h2>
+            <div class="landing-changelog-grid">
+                <div class="landing-changelog-card">
+                    <h3 class="landing-changelog-title">Версия 1.3 Beta</h3>
+                    <p class="landing-changelog-date">Май 2025</p>
+                    <p class="landing-changelog-desc">Запуск блога: читайте статьи, новости и советы от команды Client Flow.</p>
+                </div>
+                <div class="landing-changelog-card">
+                    <h3 class="landing-changelog-title">Версия 1.2 Beta</h3>
+                    <p class="landing-changelog-date">Апрель 2025</p>
+                    <p class="landing-changelog-desc">Форум для пользователей: задавайте вопросы и делитесь идеями.</p>
+                </div>
+                <div class="landing-changelog-card">
+                    <h3 class="landing-changelog-title">Версия 1.1 Beta</h3>
+                    <p class="landing-changelog-date">Март 2025</p>
+                    <p class="landing-changelog-desc">Массовая обработка, улучшенный футер, оптимизация производительности.</p>
+                </div>
+            </div>
+            <a href="#landing-changelog-modal" class="landing-changelog-link">Посмотреть все обновления</a>
+        </section>
+
+        <!-- Секция безопасности -->
+        <section id="landing-security-section" class="landing-security-section">
+            <div class="landing-security-content">
+                <h2 class="landing-section-title">Ваши данные под защитой</h2>
+                <p class="landing-security-desc">Client Flow использует локальное хранение данных, исключая риск утечек. Мы не передаем данные третьим лицам, а аналитика собирается анонимно через Google Tag Manager.</p>
+                <a href="#landing-privacy-modal" class="landing-security-link">Подробнее о конфиденциальности</a>
+            </div>
+            <div class="landing-security-visual">
+                <img src="https://blog.ishosting.com/hubfs/blog/file-protection-from-copying/secure-files-from-copying.png" alt="Иллюстрация безопасности" class="landing-security-image">
+            </div>
+        </section>
+      
+        <!-- Секция о блоге -->
+<section id="landing-blog-section" class="landing-blog-section">
+    <h2 class="landing-section-title">Узнайте больше в нашем блоге</h2>
+    <p class="landing-blog-desc">Хотите автоматизировать бизнес и повысить доход? В нашем блоге вы найдете статьи и советы по использованию CRM-системы для эффективного управления клиентами, планирования дедлайнов и учета предпочтений. Улучшайте свои показатели с Client Flow!</p>
+    <p class="landing-blog-extra">А еще у нас есть мини-форум, где пользователи обсуждают идеи и находят ответы на свои вопросы от сообщества!</p>
+    <a href="https://dev-geniy.github.io/Client-Flow/blog.html" target="_blank" rel="noopener" class="landing-blog-link">Посетить в блог</a>
+</section>
+      
+        <!-- Секция сообщества -->
+        <section id="landing-community-section" class="landing-community-section">
+            <h2 class="landing-section-title">Присоединяйтесь к нашему сообществу</h2>
+            <p class="landing-community-desc">Получайте поддержку, делитесь идеями и следите за обновлениями!</p>
+            <div class="landing-community-grid">
+                <a href="https://x.com/HotDog850642" target="_blank" rel="noopener" class="landing-community-link">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/027/395/710/small/twitter-brand-new-logo-3-d-with-new-x-shaped-graphic-of-the-world-s-most-popular-social-media-free-png.png" alt="Иконка X" class="landing-community-icon"> Мы в X
+                </a>
+                <a href="https://linkedin.com/company/client_flow_crm" target="_blank" rel="noopener" class="landing-community-link">
+                    <img src="https://cdn-icons-png.flaticon.com/128/1384/1384014.png" alt="Иконка LinkedIn" class="landing-community-icon"> Мы в LinkedIn
+                </a>
+                <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener" class="landing-community-link">
+                    <img src="https://cdn-icons-png.flaticon.com/128/2111/2111710.png" alt="Иконка Telegram" class="landing-community-icon"> Мы в Telegram
+                </a>
+                <a href="https://github.com/dev-geniy/Client-Flow" target="_blank" rel="noopener" class="landing-community-link">
+                    <img src="https://cdn-icons-png.flaticon.com/128/2111/2111432.png" alt="Иконка GitHub" class="landing-community-icon"> Мы в GitHub
+                </a>
+            </div>
+        </section>
+
+        <!-- Секция призыва к действию -->
+        <section id="landing-final-cta-section" class="landing-final-cta-section">
+            <h2 class="landing-section-title">Готовы упростить управление клиентами?</h2>
+            <p class="landing-final-cta-desc">Попробуйте Client Flow прямо сейчас и убедитесь, насколько это просто и эффективно!</p>
+            <button class="landing-cta-btn" data-action="open-form">Начать прямо сейчас!</button>
+        </section>
+
+        <!-- Секция "О нас" -->
+        <section id="landing-about-section" class="landing-about-section">
+            <h2 class="landing-section-title">Кто мы такие</h2>
+            <p class="landing-about-desc">Client Flow создан командой DevGeniy в 2025 году. Мы стремимся помочь малому бизнесу и фрилансерам эффективно управлять клиентами, предлагая простое, безопасное и бесплатное решение.</p>
+            <a href="#landing-contact-modal" class="landing-about-link">Связаться с нами</a>
+        </section>
+    </div>
+ 
+    <!-- Модальное окно с формой -->
+    <div class="landing-modal-overlay" id="landing-form-modal">
+        <div class="landing-modal-content">
+            <span class="landing-modal-close material-icons">close</span>
+            <h2 class="landing-modal-title">Давайте познакомимся!</h2>
+            <p class="landing-modal-desc">Заполните форму, чтобы мы могли лучше понять ваши потребности. Это займет всего 1 минуту!</p>
+            <form id="landing-lead-form">
+                <div class="landing-form-row">
+                    <div class="landing-form-group">
+                        <label for="name">Имя *</label>
+                        <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="landing-form-group">
+                        <label for="country">Страна *</label>
+                        <input type="text" id="country" name="country" placeholder="Ваша страна" required>
+                    </div>
+                </div>
+                <div class="landing-form-row">
+                    <div class="landing-form-group">
+                        <label for="phone">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1234567890" required>
+                    </div>
+                    <div class="landing-form-group">
+                        <label for="email">Почта *</label>
+                        <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                    </div>
+                </div>
+                <div class="landing-form-row">
+                    <div class="landing-form-group">
+                        <label for="telegram">Telegram (опционально)</label>
+                        <input type="text" id="telegram" name="telegram" placeholder="@username">
+                    </div>
+                    <div class="landing-form-group">
+                        <label for="company">Компания (опционально)</label>
+                        <input type="text" id="company" name="company" placeholder="Название компании">
+                    </div>
+                </div>
+                <div class="landing-form-row">
+                    <div class="landing-form-group">
+                        <label for="employees">Сотрудников в компании (опционально)</label>
+                        <input type="number" id="employees" name="employees" placeholder="Количество">
+                    </div>
+                </div>
+                <div class="landing-form-actions">
+                    <button type="submit" class="landing-form-submit-btn">Отправить</button>
+                    <button type="button" class="landing-form-skip-btn">Пропустить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальные окна -->
+    <div class="landing-modal-overlay" id="landing-changelog-modal">
+        <div class="landing-modal-content">
+            <span class="landing-modal-close material-icons">close</span>
+            <h2 class="landing-modal-title">История обновлений</h2>
+            <p>Мы постоянно работаем над улучшением Client Flow, добавляя новые функции и исправляя ошибки.</p>
+            <h3>Версия 1.3 Beta (Май 2025)</h3>
+            <ul>
+                <li><strong>Запуск блога:</strong> Форум заменён на корпоративный блог! Теперь вы можете читать статьи, новости и советы от команды Client Flow.</li>
+            </ul>
+            <h3>Версия 1.2 Beta (Апрель 2025)</h3>
+            <ul>
+                <li><strong>Форум для пользователей:</strong> Запустили форум для нашей платформы! Теперь каждый может задать вопрос или поделиться идеями.</li>
+            </ul>
+            <h3>Версия 1.1 Beta (Март 2025)</h3>
+            <ul>
+                <li><strong>Массовая обработка:</strong> Удаляйте несколько клиентов одним действием.</li>
+                <li><strong>Улучшенный футер:</strong> Добавлены формы обратной связи и ссылки на сообщества.</li>
+                <li><strong>Производительность:</strong> Оптимизирована фильтрация клиентов.</li>
+                <li><strong>Дизайн:</strong> Обновлены анимации и поддержка тем.</li>
+            </ul>
+            <h3>Версия 1.0 Beta (Январь 2025)</h3>
+            <ul>
+                <li><strong>Запуск Client Flow:</strong> Первая версия с базовой функциональностью.</li>
+                <li><strong>Основные функции:</strong> Добавление, редактирование, удаление клиентов.</li>
+                <li><strong>Экспорт/импорт:</strong> Поддержка CSV для резервного копирования.</li>
+                <li><strong>График роста:</strong> Интерактивный график клиентской базы.</li>
+            </ul>
+            <p>Следите за обновлениями в <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener">Telegram</a> или <a href="https://x.com/HotDog850642" target="_blank" rel="noopener">X</a>!</p>
+        </div>
+    </div>
+
+    <div class="landing-modal-overlay" id="landing-privacy-modal">
+        <div class="landing-modal-content">
+            <span class="landing-modal-close material-icons">close</span>
+            <h2 class="landing-modal-title">Политика конфиденциальности</h2>
+            <p>В Client Flow мы понимаем, насколько важна для вас безопасность ваших данных.</p>
+            <p><strong>Ваши данные — только ваши.</strong> Все данные хранятся локально на вашем устройстве, без облачного хранения.</p>
+            <p><strong>Почему это безопасно?</strong> Отсутствие серверов исключает риск взлома или утечек.</p>
+            <p><strong>Аналитика.</strong> Мы собираем только анонимные данные через Google Tag Manager для улучшения приложения.</p>
+            <p><strong>Ваши права.</strong> Экспортируйте данные в CSV или удалите их в любой момент.</p>
+            <p>Вопросы? Пишите на <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a>.</p>
+        </div>
+    </div>
+
+    <div class="landing-modal-overlay" id="landing-contact-modal">
+        <div class="landing-modal-content">
+            <span class="landing-modal-close material-icons">close</span>
+            <h2 class="landing-modal-title">Свяжитесь с нами</h2>
+            <p>Мы всегда рады услышать вас! Свяжитесь с нами, чтобы задать вопрос или поделиться впечатлениями.</p>
+            <p><strong>Email:</strong> <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a></p>
+            <p><strong>GitHub:</strong> <a href="https://github.com/dev-geniy/Client-Flow" target="_blank" rel="noopener">github.com/dev-geniy/Client-Flow</a></p>
+            <p><strong>X:</strong> <a href="https://x.com/HotDog850642" target="_blank" rel="noopener">@HotDog850642</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/company/client_flow_crm" target="_blank" rel="noopener">linkedin.com/company/client_flow_crm</a></p>
+            <p><strong>Telegram:</strong> <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener">t.me/client_flow_crm</a></p>
+        </div>
+    </div>
+
+    <script src="landing-script.js"></script>
+  
+  <!-- Кнопка "Наверх" -->
+<button class="landing-scroll-top" title="Вернуться наверх">
+    <span class="material-icons">arrow_upward</span>
+</button>
+  
+</body>
+</html>
