@@ -405,3 +405,22 @@ document.addEventListener('DOMContentLoaded', () => {
 document.querySelector('#bonus-modal .close')?.addEventListener('click', () => {
   closeModal(document.getElementById('bonus-modal'));
 });
+
+// Бургер меню
+// Управление бургер-меню
+document.querySelector('.burger-icon').addEventListener('click', () => {
+  const burgerMenu = document.querySelector('.burger-menu');
+  burgerMenu.classList.toggle('open');
+
+  // Закрытие меню при клике вне его
+  if (burgerMenu.classList.contains('open')) {
+    const closeMenuOnClickOutside = (e) => {
+      if (!burgerMenu.contains(e.target) && !e.target.classList.contains('burger-icon')) {
+        burgerMenu.classList.remove('open');
+        document.removeEventListener('click', closeMenuOnClickOutside);
+      }
+    };
+    document.addEventListener('click', closeMenuOnClickOutside);
+  }
+});
+
