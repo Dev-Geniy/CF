@@ -782,3 +782,56 @@ body:not(.dark) .footer-social h4::after {
     grid-template-columns: 1fr;
   }
 }
+
+/* Новое меню вверху */
+/* Стили для навигационного меню (ПК-версия) */
+.nav-menu {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: var(--text); /* Используем --text */
+  font-weight: 500;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+  color: #7c4dff;
+}
+
+.nav-menu a.active {
+  color: #7c4dff;
+  border-bottom: 2px solid #7c4dff;
+}
+
+/* Адаптивность: мобильная версия (ширина < 768px) */
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+    gap: 10px;
+    position: relative;
+  }
+
+  .logo {
+    flex: 1;
+  }
+
+  .search-bar {
+    flex: 1 1 100%;
+    order: 3;
+  }
+
+  .header-actions {
+    flex: 1;
+    order: 2;
+    justify-content: flex-end;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+}
