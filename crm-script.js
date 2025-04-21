@@ -839,6 +839,20 @@ document.querySelector('#client-form button[type="submit"]').addEventListener('c
   document.getElementById('client-form').dispatchEvent(new Event('submit'));
 });
 
+// Кнопка "Наверх"
+const scrollTopButton = document.querySelector('.landing-scroll-top');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        scrollTopButton.classList.add('visible');
+    } else {
+        scrollTopButton.classList.remove('visible');
+    }
+});
+
+scrollTopButton.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
 // ВРЕМЕННАЯ ПРОВЕРКА ЛОКАЛ СТОРЕДЖ
 document.addEventListener('DOMContentLoaded', () => {
   try {
