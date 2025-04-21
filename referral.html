@@ -1,0 +1,431 @@
+<DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Партнёрская программа Client Flow</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="referral.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+  <!-- Хедер -->
+  <header>
+    <div class="logo">
+      <span class="gradient-text">Client Flow</span>
+      <span class="version">v1.3 Beta</span>
+    </div> 
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="community.html">Мини-форум</a>
+      <a href="blog.html">Блог</a>
+      <a href="referral.html" class="active">Пригласи друга</a>
+    </nav>
+    <div class="header-actions">
+      <div class="theme-toggle">
+        <span class="material-icons">brightness_6</span>
+        <input type="checkbox" id="theme-switch" aria-label="Переключить тему">
+      </div>
+    </div>
+  </header>
+
+  <!-- Основное содержимое -->
+  <main>
+    <section class="referral-section">
+      <div class="referral-header">
+        <h1>Партнёрская программа Client Flow</h1>
+        <p>Приглашайте друзей и получайте бонусы за каждого нового пользователя!</p>
+      </div>
+
+      <!-- Контент партнёрской программы -->
+      <div class="referral-content">
+<!-- Дашборд -->
+<div class="referral-card dashboard-card">
+  <h3>Ваш прогресс</h3>
+  <div class="dashboard-stats">
+    <div class="stat">
+      <span class="material-icons">link</span>
+      <p>Переходов по ссылке: <strong id="clicks-count">0</strong></p>
+    </div>
+    <div class="stat">
+      <span class="material-icons">person_add</span>
+      <p>Приглашено друзей: <strong id="friends-count">0</strong></p>
+    </div>
+    <div class="stat">
+      <span class="material-icons">star</span>
+      <p>До следующего бонуса: <strong id="progress-to-bonus">3 друзей</strong></p>
+    </div>
+    <div class="stat">
+      <span class="material-icons">card_giftcard</span>
+      <p>Заработано бонусов: <strong id="bonuses-earned">0</strong></p>
+    </div>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+  <div class="rewards-history">
+    <h4>История наград</h4>
+    <ul id="rewards-list">
+      <!-- Список наград будет заполняться через JS -->
+    </ul>
+  </div>
+  <button class="btn gradient-btn reset-btn" onclick="resetStats()" aria-label="Сбросить статистику">
+    <span class="material-icons">refresh</span> Сбросить статистику
+  </button>
+</div>
+        
+        <!-- Карточка с реферальной ссылкой -->
+        <div class="referral-card">
+          <h3>Ваша реферальная ссылка</h3>
+          <div class="referral-link">
+            <input type="text" id="referral-link" readonly aria-label="Ваша реферальная ссылка">
+            <button class="btn gradient-btn copy-btn" onclick="copyReferralLink()" aria-label="Скопировать ссылку">
+              <span class="material-icons">content_copy</span>
+            </button>
+          </div>
+          <p>Поделитесь этой ссылкой с друзьями! Каждый, кто зарегистрируется по вашей ссылке, принесёт вам бонусы.</p>
+        </div>
+
+        <!-- Карточка с инструкцией -->
+        <div class="referral-card">
+          <h3>Как это работает?</h3>
+          <ol class="referral-steps">
+            <li>Скопируйте вашу уникальную реферальную ссылку выше.</li>
+            <li>Отправьте её друзьям, коллегам или разместите в социальных сетях.</li>
+            <li>Когда кто-то зарегистрируется по вашей ссылке, вы получите бонус!</li>
+          </ol>
+        </div>
+
+<!-- Карточка с бонусами -->
+<div class="referral-card">
+  <h3>Ваши бонусы</h3>
+  <p>За приглашённых друзей вы получите:</p>
+  <ul class="referral-rewards">
+    <li>Каждый друг: +30 дней бесплатного доступа к премиум-функциям.</li>
+    <li>Случайный бонус: 10% шанс получить +10 дней премиума за каждого друга.</li>
+    <li>3 друга: Эксклюзивный значок "Партнёр" в вашем профиле.</li>
+    <li>5 друзей: Годовая подписка на Client Flow!</li>
+    <li>10 друзей: 500 бонусных баллов для использования в Client Flow.</li>
+    <li>15 друзей: VIP-статус с доступом к эксклюзивным функциям.</li>
+    <li>20 друзей: Бесплатная консультация и любая помощь от експерта по настройке Client Flow.</li>
+    <li>25 друзей: Эксклюзивная тема оформления для Client Flow.</li>
+  </ul>
+</div>
+        
+        <!-- Карточка с призывом к действию -->
+        <div class="referral-card cta-card">
+          <h3>Начните прямо сейчас!</h3>
+          <p>Пригласите друзей и начните получать бонусы уже сегодня!</p>
+          <button class="btn gradient-btn share-btn" onclick="shareReferralLink()" aria-label="Поделиться ссылкой">
+            <span class="material-icons">share</span> Поделиться
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Боковая панель -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-handle">
+      <span class="material-icons">chevron_left</span>
+    </div>
+    <div class="sidebar-content">
+      <div class="setting">
+        <span><span class="material-icons">palette</span> Тема</span>
+        <div class="theme-toggle">
+          <input type="checkbox" id="sidebar-theme-switch" aria-label="Переключить тему">
+        </div>
+      </div>
+      <div class="setting about-blog">
+        <span><span class="material-icons">info</span> О партнёрской программе</span>
+        <p>Присоединяйтесь к нашей реферальной программе! Приглашайте друзей в Client Flow и получайте бонусы за каждого нового пользователя. Вместе мы сделаем управление клиентами ещё проще и эффективнее!</p>
+      </div>
+      <div class="setting social-links">
+        <span><span class="material-icons">share</span> Мы в соцсетях</span>
+        <div class="social-icons">
+          <a href="https://x.com/HotDog850642" target="_blank" title="Client Flow в X">
+            <svg class="social-icon x-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="https://linkedin.com/company/client_flow_crm" target="_blank" title="Client Flow в LinkedIn">
+            <svg class="social-icon linkedin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a href="https://t.me/client_flow_crm" target="_blank" title="Client Flow в Telegram">
+            <svg class="social-icon telegram-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path d="M9.417 15.181l-.397 5.584c.568 0 .814-.244 1.109-.537l2.663-2.545 5.518 4.041c1.012.564 1.725.267 1.998-.931L23.93 3.821l.001-.001c.321-1.496-.541-2.081-1.527-1.714L2.929 8.588c-1.453.324-1.427 1.389-.209 1.989l5.074 1.581 11.78-7.418c.598-.378-.105-.904-.851-.573L7.814 13.5l-3.025-.919z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Футер -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="gradient-text">Client Flow</span>
+          <span class="version">v1.2</span>
+        </div>
+        <p>Простая и безопасная CRM для вашего бизнеса</p>
+        <p>Управляйте клиентами легко и бесплатно! Мы поддерживаем малый бизнес с 2025 года, предлагая надежное решение для управления вашими данными.</p>
+        <button class="btn gradient-btn changelog-btn" onclick="openModal('changelog-modal')" aria-label="Посмотреть изменения в версии"><span class="material-icons">history</span> Changelog</button>
+      </div>
+
+      <div class="footer-links">
+        <h4>Информация</h4>
+        <ul>
+          <li><a href="#" class="features-link" onclick="openModal('features-modal')" aria-label="Перейти к разделу функций">Функционал CRM</a></li>
+          <li><a href="#" class="support-link" onclick="openModal('support-modal')" aria-label="Перейти к поддержке">Тех. поддержка</a></li>
+          <li><a href="#" class="contact-link" onclick="openModal('contact-modal')" aria-label="Связаться с нами">Контакты</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="blog.html" class="blog-link" aria-label="Перейти к блогу">Наш Блог</a></li>
+          <li><a href="community.html" class="blog-link" aria-label="Перейти к мини-форуму">Наш Мини-форум</a></li>
+          <li><a href="referral.html" class="referral-link" aria-label="Перейти к программе Пригласи друга">Наша реф. программа</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-contact">
+        <h4>Свяжитесь с нами</h4>
+        <p><span class="material-icons">email</span> <a href="mailto:dev_geniy_partner@protonmail.com" aria-label="Отправить email на dev_geniy_partner@protonmail.com">Напишите на почту</a></p>
+        <p><span class="material-icons">chat</span> <a href="#" class="feedback-link" onclick="openModal('feedback-modal')" aria-label="Оставить отзыв">Оставить отзыв</a></p>
+        <p><span class="material-icons">bug_report</span> <a href="#" class="bug-report-link" onclick="openModal('bug-report-modal')" aria-label="Сообщить об ошибке">Сообщить об ошибке</a></p>
+      </div>
+
+      <div class="footer-social">
+        <h4>Сообщество</h4>
+        <div class="social-icons">
+          <a href="https://github.com/dev-geniy/Client-Flow" target="_blank" rel="noopener" aria-label="GitHub"><span class="material-icons">code</span></a>
+          <a href="https://x.com/HotDog850642" target="_blank" rel="noopener" aria-label="X"><span class="material-icons">alternate_email</span></a>
+          <a href="https://linkedin.com/company/client_flow_crm" target="_blank" rel="noopener" aria-label="LinkedIn"><span class="material-icons">business</span></a>
+          <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener" aria-label="Telegram"><span class="material-icons">chat</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        <p>© <span id="current-year"></span> Client Flow. Все права защищены.</p>
+      </div>
+      <div class="footer-legal">
+        <a href="#privacy" class="privacy-link" onclick="openModal('privacy-modal')" aria-label="Политика конфиденциальности">Политика конфиденциальности</a>
+        <a href="#terms" class="terms-link" onclick="openModal('terms-modal')" aria-label="Условия использования">Условия использования</a>
+        <a href="#cookies" class="cookies-link" onclick="openModal('cookies-modal')" aria-label="Политика использования cookies">Cookies</a>
+      </div>
+      <div class="footer-extras">
+        <button id="back-to-top" class="btn gradient-btn" title="Вернуться наверх" aria-label="Вернуться наверх">
+          <span class="material-icons">arrow_upward</span>
+        </button>
+        <p class="powered-by">Powered by <a href="https://x.com/HotDog850642" target="_blank" rel="noopener" aria-label="DevGeniy">DevGeniy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Модальные окна для футера -->
+  <!-- Changelog Modal -->
+  <div class="modal" id="changelog-modal" role="dialog" aria-modal="true" aria-labelledby="changelog-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="changelog-title">Changelog</h2>
+      <p>Мы постоянно работаем над улучшением Client Flow, добавляя новые функции и исправляя ошибки. Здесь вы можете узнать, что нового в каждой версии приложения.</p>
+      <h3>Версия 1.3 Beta (Май 2025)</h3>
+      <ul>
+        <li><strong>Запуск блога:</strong> Форум заменён на корпоративный блог! Теперь вы можете читать статьи, новости и советы от команды Client Flow. Статьи добавляются только владельцем сайта для обеспечения качества контента.</li>
+      </ul>
+      <h3>Версия 1.2 Beta (Апрель 2025)</h3>
+      <ul>
+        <li><strong>Форум для пользователей:</strong> Запустили форум для нашей платформы! Теперь он доступен всем пользователям, и каждый может задать свой вопрос, поделиться идеями или получить поддержку.</li>
+      </ul>
+      <h3>Версия 1.1 Beta (Март 2025)</h3>
+      <ul>
+        <li><strong>Массовая обработка:</strong> Теперь вы можете выбирать несколько клиентов и удалять их одним действием — это экономит время, если у вас много устаревших записей.</li>
+        <li><strong>Улучшенный футер:</strong> Добавили интерактивные элементы, такие как формы обратной связи, подробные модальные окна и ссылки на сообщества.</li>
+        <li><strong>Производительность:</strong> Оптимизировали фильтрацию клиентов, чтобы она работала быстрее, даже если у вас тысячи записей.</li>
+        <li><strong>Дизайн:</strong> Обновили визуальный стиль приложения, добавили больше анимаций и улучшили поддержку светлой и тёмной тем.</li>
+      </ul>
+      <h3>Версия 1.0 Beta (Январь 2025)</h3>
+      <ul>
+        <li><strong>Запуск Client Flow:</strong> Первая версия приложения с базовой функциональностью управления клиентами.</li>
+        <li><strong>Основные функции:</strong> Добавление, редактирование и удаление клиентов, а также возможность добавлять заметки, теги и дедлайны.</li>
+        <li><strong>Экспорт/импорт:</strong> Реализовали возможность экспорта данных в CSV и импорта из CSV для удобного переноса данных.</li>
+        <li><strong>График роста:</strong> Добавили интерактивный график, чтобы вы могли отслеживать рост вашей клиентской базы.</li>
+      </ul>
+      <p>Следите за обновлениями в нашем <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener">Telegram-канале</a> или на <a href="https://x.com/HotDog850642" target="_blank" rel="noopener">X</a>!</p>
+    </div>
+  </div>
+  
+  <!-- Поздравительное окно Modal -->
+  <div id="bonus-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Поздравляем!</h2>
+    <p id="bonus-message"></p>
+  </div>
+</div>
+  
+  <!-- Features Modal -->
+  <div class="modal" id="features-modal" role="dialog" aria-modal="true" aria-labelledby="features-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="features-title">Функции Client Flow</h2>
+      <p>Client Flow создан, чтобы упростить управление клиентами для малого бизнеса. Вот что мы предлагаем:</p>
+      <ul class="features-list">
+        <li><strong>Управление клиентами:</strong> Создавайте карточки клиентов с полной информацией, включая имена, компании, контакты и статус.</li>
+        <li><strong>Заметки и теги:</strong> Добавляйте заметки для каждого клиента и используйте теги для быстрой организации.</li>
+        <li><strong>Фильтрация:</strong> Быстро находите нужных клиентов по статусу (активные, приоритетные, избранные), тегам или датам.</li>
+        <li><strong>Дедлайны:</strong> Устанавливайте дедлайны для задач и получайте напоминания о важных событиях.</li>
+        <li><strong>Экспорт и импорт:</strong> Сохраняйте данные в CSV для резервного копирования или переносите их в другие системы.</li>
+        <li><strong>График роста:</strong> Отслеживайте рост вашей клиентской базы с помощью интерактивного графика.</li>
+        <li><strong>Персонализация:</strong> Выбирайте между светлой и тёмной темой, включайте или отключайте анимации.</li>
+        <li><strong>Массовая обработка:</strong> Выбирайте несколько клиентов и удаляйте их одним действием.</li>
+        <li><strong>Безопасность:</strong> Все данные хранятся локально на вашем устройстве, что делает Client Flow одним из самых безопасных решений для малого бизнеса.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Support Modal -->
+  <div class="modal" id="support-modal" role="dialog" aria-modal="true" aria-labelledby="support-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="support-title">Поддержка</h2>
+      <p>Мы здесь, чтобы помочь вам на каждом этапе использования Client Flow! Если у вас есть вопросы, проблемы или предложения, свяжитесь с нами любым удобным способом.</p>
+      <p><strong>Email:</strong> Напишите нам на <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a>, и мы ответим в течение 24 часов.</p>
+      <p><strong>Telegram:</strong> Присоединяйтесь к нашему сообществу в Telegram: <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener">t.me/client_flow_crm</a>. Здесь вы можете получить быструю помощь и обсудить приложение с другими пользователями.</p>
+      <p><strong>GitHub:</strong> Если вы столкнулись с технической проблемой, вы можете сообщить о ней через GitHub: <a href="https://github.com/dev-geniy/Client-Flow/issues" target="_blank" rel="noopener">GitHub Issues</a>.</p>
+      <p><strong>Часто задаваемые вопросы (FAQ):</strong> Скоро мы добавим раздел FAQ на нашем сайте, чтобы вы могли быстро найти ответы на популярные вопросы.</p>
+      <p>Мы ценим каждого пользователя и стремимся сделать Client Flow максимально удобным и полезным для вас!</p>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div class="modal" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="contact-title">Контакты</h2>
+      <p>Мы всегда рады услышать вас! Свяжитесь с нами, чтобы задать вопрос, сообщить об ошибке или просто поделиться своими впечатлениями о Client Flow.</p>
+      <p><strong>Email:</strong> <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a> — пишите нам по любым вопросам, и мы ответим в кратчайшие сроки.</p>
+      <p><strong>GitHub:</strong> Следите за развитием проекта и участвуйте в его улучшении: <a href="https://github.com/dev-geniy/Client-Flow" target="_blank" rel="noopener">github.com/dev-geniy/Client-Flow</a>.</p>
+      <p><strong>X:</strong> Подписывайтесь на нас в X, чтобы быть в курсе новостей и обновлений: <a href="https://x.com/HotDog850642" target="_blank" rel="noopener">@HotDog850642</a>.</p>
+      <p><strong>LinkedIn:</strong> Мы также присутствуем на LinkedIn, где делимся полезными советами для малого бизнеса: <a href="https://linkedin.com/company/client_flow_crm" target="_blank" rel="noopener">linkedin.com/company/client_flow_crm</a>.</p>
+      <p><strong>Telegram:</strong> Присоединяйтесь к нашему Telegram-каналу для общения и оперативной поддержки: <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener">t.me/client_flow_crm</a>.</p>
+      <p>Мы открыты к сотрудничеству и всегда готовы выслушать ваши идеи!</p>
+    </div>
+  </div>
+
+  <!-- Оставить отзыв -->
+  <div class="modal" id="feedback-modal" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="feedback-title">Оставить отзыв</h2>
+      <form id="feedback-form">
+        <textarea id="feedback-text" placeholder="Ваш отзыв..." aria-label="Введите ваш отзыв" required></textarea>
+        <div class="actions">
+          <button type="submit" class="btn gradient-btn" title="Отправить отзыв" aria-label="Отправить отзыв">Отправить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Сообщить об ошибке -->
+  <div class="modal" id="bug-report-modal" role="dialog" aria-modal="true" aria-labelledby="bug-report-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="bug-report-title">Сообщить об ошибке</h2>
+      <form id="bug-report-form">
+        <textarea id="bug-report-text" placeholder="Опишите проблему..." aria-label="Опишите проблему" required></textarea>
+        <div class="actions">
+          <button type="submit" class="btn gradient-btn" title="Отправить сообщение об ошибке" aria-label="Отправить сообщение об ошибке">Отправить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Privacy Modal -->
+  <div class="modal" id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="privacy-title">Политика конфиденциальности</h2>
+      <p>В Client Flow мы понимаем, насколько важна для вас безопасность ваших данных, и делаем всё возможное, чтобы обеспечить максимальную защиту вашей конфиденциальности.</p>
+      <p><strong>Ваши данные — только ваши.</strong> Client Flow разработан так, чтобы все данные о клиентах, которые вы вводите, хранились исключительно на вашем устройстве. Благодаря отсутствию серверной логики и облачного хранения, ваши данные не передаются третьим лицам, не отправляются на удалённые серверы и не хранятся где-либо, кроме вашего браузера. Это означает, что вероятность потери, утечки или кражи данных практически равна нулю. Мы используем локальное хранилище (LocalStorage) для сохранения ваших данных, что делает Client Flow одним из самых безопасных решений для управления клиентами.</p>
+      <p><strong>Почему это безопасно?</strong> Отсутствие серверной инфраструктуры исключает риск взлома или несанкционированного доступа. Даже мы, создатели Client Flow, не имеем доступа к вашим данным, потому что они физически находятся только на вашем устройстве. Это делает наше приложение идеальным выбором для малого бизнеса, который ценит конфиденциальность и хочет избежать сложных решений с облачным хранением.</p>
+      <p><strong>Аналитика.</strong> Мы используем Google Tag Manager для сбора анонимной аналитики (например, количество посещений или кликов), чтобы улучшать приложение. Эти данные не содержат персональной информации и используются исключительно для анализа поведения пользователей в общем виде.</p>
+      <p><strong>Ваши права.</strong> Вы полностью контролируете свои данные. Вы можете экспортировать их в CSV в любой момент или удалить, очистив данные браузера. Мы не собираем никаких дополнительных данных, кроме тех, которые вы сами вводите в приложение.</p>
+      <p>Если у вас есть вопросы о том, как мы защищаем вашу конфиденциальность, пожалуйста, свяжитесь с нами по адресу <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a>. Мы всегда готовы объяснить всё в деталях!</p>
+    </div>
+  </div>
+
+  <!-- Terms Modal -->
+  <div class="modal" id="terms-modal" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="terms-title">Условия использования</h2>
+      <p>Добро пожаловать в Client Flow! Используя наше приложение, вы соглашаетесь с приведёнными ниже условиями. Мы постарались сделать их максимально понятными и прозрачными.</p>
+      <p><strong>1. Общие положения.</strong> Client Flow — это бесплатное веб-приложение, созданное для упрощения управления клиентами. Мы предоставляем его "как есть", что означает, что вы используете приложение на свой страх и риск. Мы не несем ответственности за возможные ошибки или потерю данных, хотя делаем всё возможное, чтобы приложение работало стабильно.</p>
+      <p><strong>2. Хранение данных.</strong> Все данные, которые вы вводите в Client Flow, хранятся локально на вашем устройстве. Мы рекомендуем регулярно экспортировать ваши данные в CSV (эта функция доступна в настройках), чтобы избежать потери информации в случае очистки браузера или сбоя устройства.</p>
+      <p><strong>3. Ответственность пользователя.</strong> Вы обязуетесь использовать Client Flow только в законных целях. Запрещается использовать приложение для хранения или обработки данных, которые нарушают законы вашей страны, включая, но не ограничиваясь, конфиденциальной информацией, полученной без согласия.</p>
+      <p><strong>4. Обновления и поддержка.</strong> Мы регулярно обновляем Client Flow, чтобы сделать его лучше. Однако мы не гарантируем, что обновления будут совместимы со всеми браузерами или устройствами. Если у вас возникнут проблемы, пожалуйста, свяжитесь с нами через раздел "Поддержка".</p>
+      <p><strong>5. Ограничение ответственности.</strong> Client Flow не несёт ответственности за любые убытки, связанные с использованием приложения, включая потерю данных, упущенную выгоду или другие косвенные убытки. Мы также не несем ответственности за сбои, вызванные вашим устройством, браузером или интернет-соединением.</p>
+      <p><strong>6. Изменения условий.</strong> Мы можем обновлять эти условия в будущем. Все изменения будут опубликованы здесь, и мы уведомим вас через наш Telegram-канал или X.</p>
+      <p>Если у вас есть вопросы по условиям использования, напишите нам на <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a>. Мы будем рады помочь!</p>
+    </div>
+  </div>
+
+  <!-- Cookies Modal -->
+  <div class="modal" id="cookies-modal" role="dialog" aria-modal="true" aria-labelledby="cookies-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="cookies-title">Политика использования Cookies</h2>
+      <p>Client Flow стремится быть максимально прозрачным в вопросах использования данных. Здесь мы объясняем, как и почему мы используем cookies.</p>
+      <p><strong>Что такое cookies?</strong> Cookies — это небольшие файлы, которые сохраняются в вашем браузере для улучшения работы веб-приложений. Они помогают запоминать ваши настройки и собирать анонимную аналитику.</p>
+      <p><strong>Как мы используем cookies?</strong> В Client Flow cookies используются для двух целей:</p>
+      <ul>
+        <li><strong>Функциональность:</strong> Мы сохраняем ваши настройки (например, выбор темы — светлая или тёмная) в LocalStorage, чтобы вам не приходилось настраивать приложение каждый раз заново.</li>
+        <li><strong>Аналитика:</strong> Мы используем Google Tag Manager для сбора анонимной статистики (например, сколько пользователей открыли приложение или сколько раз была нажата кнопка "Экспорт"). Эти данные помогают нам улучшать Client Flow, но не содержат персональной информации.</li>
+      </ul>
+      <p><strong>Контроль над cookies.</strong> Вы можете отключить cookies в настройках вашего браузера. Однако это может повлиять на функциональность приложения, например, ваши настройки темы перестанут сохраняться. Если вы хотите полностью отказаться от аналитики, вы можете использовать режим "Не отслеживать" (Do Not Track) в браузере или установить блокировщики аналитики, такие как uBlock Origin.</p>
+      <p><strong>Безопасность.</strong> Cookies, которые мы используем, не содержат персональных данных и не могут быть использованы для идентификации вас как пользователя. Ваши данные о клиентах хранятся отдельно в LocalStorage и не связаны с cookies.</p>
+      <p>Если у вас есть вопросы о нашей политике использования cookies, свяжитесь с нами по адресу <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a>.</p>
+    </div>
+  </div>
+  
+  <div id="confirm-reset-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Подтверждение</h2>
+    <p>Вы уверены, что хотите обновить ссылку? ВСЕ ДАННЫЕ БУДУТ УТЕРЯНЫ: Статистика переходов, Рефералы, Награды, Бонусы!</p>
+    <div class="modal-buttons">
+      <button class="btn gradient-btn" onclick="confirmResetLink()">Подтвердить</button>
+      <button class="btn" onclick="closeModal(document.getElementById('confirm-reset-modal'))">Отменить</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD3Sqbuy2Swcdemr0H_qHr6EBT5UGv2JQc",
+    authDomain: "client-flow-beta.firebaseapp.com",
+    databaseURL: "https://client-flow-beta-default-rtdb.firebaseio.com",
+    projectId: "client-flow-beta",
+    storageBucket: "client-flow-beta.firebasestorage.app",
+    messagingSenderId: "838413488663",
+    appId: "1:838413488663:web:940f563c089a87f455c252",
+    measurementId: "G-EEFDNJL66Z"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
+  <script src="referral.js"></script>
+</body>
+</html>
