@@ -1115,6 +1115,81 @@ body:not(.dark) .footer-social h4::after {
   border-bottom: 2px solid #7c4dff;
 }
 
+/* Скрываем бургер-меню на ПК */
+.burger-menu {
+  display: none;
+}
+
+/* Стили для бургер-меню (мобильная версия) */
+.burger-icon {
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 35px;
+  min-height: 30px;
+}
+
+.burger-icon span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text); /* Исправлено: используем --text */
+  transition: all 0.3s ease;
+}
+
+.burger-menu-content {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  padding: 10px;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.burger-menu-content a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  padding: 10px;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.burger-menu-content a:hover {
+  background-color: var(--glass-bg); /* Заменили --hover-bg на --glass-bg, так как --hover-bg не определён */
+  color: #7c4dff;
+}
+
+.burger-menu-content a.active {
+  color: #7c4dff;
+}
+
+/* Анимация для бургер-меню при открытии */
+.burger-menu.open .burger-icon span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-menu.open .burger-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.open .burger-icon span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.burger-menu.open .burger-menu-content {
+  display: flex;
+}
+
 /* Адаптивность: мобильная версия (ширина < 768px) */
 @media (max-width: 768px) {
   header {
@@ -1141,4 +1216,10 @@ body:not(.dark) .footer-social h4::after {
   .nav-menu {
     display: none;
   }
+
+  .burger-menu {
+    display: block;
+    order: 1;
+  }
 }
+
