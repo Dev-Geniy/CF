@@ -42,42 +42,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   
   <div class="dashboard">
-  <header>
-      <div class="logo">
-        <span class="gradient-text">Client Flow</span>
-        <span class="version">v1.3 Beta</span>
-      </div>
-      <div class="search-bar">
-        <span class="material-icons">search</span>
-        <input type="text" id="search" placeholder="Найти клиента или компанию..." aria-label="Поиск клиентов">
-      </div>
-      <!-- Добавляем навигационное меню -->
-      <nav class="nav-menu">
-        <a href="index.html" class="active">CRM</a>
-        <a href="community.html">Мини-форум</a>
+<header>
+  <div class="logo">
+    <span class="gradient-text">Client Flow</span>
+    <span class="version">v1.3 Beta</span>
+  </div>
+  <div class="search-bar">
+    <span class="material-icons">Поиск клиента</span>
+    <input type="text" id="search" placeholder="Найти клиента или компанию..." aria-label="Поиск клиентов">
+  </div>
+  <!-- Добавляем навигационное меню -->
+  <nav class="nav-menu">
+    <a href="index.html">Главная</a>
+    <a href="crm.html" class="active">CRM</a>
+    <a href="community.html">Форум</a>
+    <a href="blog.html">Блог</a>
+    <a href="referral.html">Партнёрка</a>
+    <a href="tools.html">Инструменты</a>
+  </nav>
+  <!-- Бургер-меню для мобильных устройств -->
+  <div class="burger-menu">
+    <button class="burger-icon" aria-label="Открыть меню">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="burger-menu-content">
+        <a href="index.html">Главная</a>
+        <a href="crm.html" class="active">CRM</a>
+        <a href="community.html">Форум</a>
         <a href="blog.html">Блог</a>
-        <a href="referral.html">Пригласи друга</a>
-      </nav>
-      <!-- Бургер-меню для мобильных устройств -->
-      <div class="burger-menu">
-        <button class="burger-icon" aria-label="Открыть меню">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <div class="burger-menu-content">
-          <a href="crm.html" class="active">Главная</a>
-          <a href="crm.html" class="active">CRM</a>
-          <a href="community.html">Форум</a>
-          <a href="blog.html">Блог</a>
-          <a href="referral.html">Партнёрка</a>
-          <a href="tools.html">Полезное</a>
-        </div>
-      </div>
-      <div class="header-actions">
-        <button id="bulk-actions" class="btn" title="Массовые действия" disabled><span class="material-icons">select_all</span> Выбрать</button>
-        <button id="add-client" class="btn gradient-btn" title="Добавить нового клиента"><span class="material-icons">add</span> Новый клиент</button>
-      </div>
+        <a href="referral.html">Партнёрка</a>
+        <a href="tools.html">Инструменты</a>
+    </div>
+  </div>
+        <div class="header-actions">
+    <button id="bulk-actions" class="btn" title="Массовые действия" disabled><span class="material-icons">select_all</span> Выбрать</button>
+    <button id="add-client" class="btn gradient-btn" title="Добавить нового клиента"><span class="material-icons">add</span> Новый клиент</button>
+  </div>
 </header>
  
     <main>
