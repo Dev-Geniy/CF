@@ -1,0 +1,28 @@
+{
+  "name": "Client Flow",
+  "short_name": "ClientFlow",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7c4dff",
+  "icons": [
+    {
+      "src": "favicon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["productivity", "business", "utilities"],
+  "description": "Простая CRM для управления клиентами с заметками, тегами и экспортом в CSV. Бесплатно и офлайн!"
+}
