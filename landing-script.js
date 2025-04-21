@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Основные переменные
     const formModal = document.getElementById('landing-form-modal');
-    const crmUrl = 'https://dev-geniy.github.io/Client-Flow/crm.html';
+    const crmUrl = 'https://dev-geniy.github.io/CF/crm.html';
     const hasSubmittedForm = localStorage.getItem('hasSubmittedForm');
 
     // Функция открытия модального окна
@@ -94,8 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('formData', JSON.stringify(data));
 
         // Отправка в Telegram-бота
-        const botToken = 'YOUR_BOT_TOKEN'; // Замените на ваш токен бота
-        const chatId = 'YOUR_CHAT_ID'; // Замените на ваш chat_id
+        const botToken = '7547438973:AAFr0I-mxvM_6eEDZnHQSZk5fLRYexc1PoE'; // Замените на ваш токен бота
+        const chatId = '7509823175'; // Замените на ваш chat_id
         const message = `
 Новая заявка с Client Flow:
 Имя: ${data.name}
