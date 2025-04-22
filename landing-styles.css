@@ -10,7 +10,7 @@
     --landing-accent: #ff5252;
 }
 
-.landing-body.dark {
+body.dark {
     --landing-primary: #bb86fc;
     --landing-primary-dark: #7c4dff;
     --landing-bg: #1e1e1e;
@@ -74,8 +74,8 @@
 
 /* Кнопка в хедере */
 .landing-cta-top-btn {
-    margin-left: 10px; /* Отодвигает кнопку вправо */
-    margin-right: 50px; /* Отступ справа от правого края */
+    margin-left: 10px;
+    margin-right: 50px;
     padding: 10px 20px;
     border-radius: 25px;
     border: none;
@@ -91,7 +91,6 @@
     text-transform: uppercase;
 }
 
-/* Эффект блика при наведении */
 .landing-cta-top-btn::before {
     content: '';
     position: absolute;
@@ -112,10 +111,10 @@
     box-shadow: 0 6px 20px rgba(124, 77, 255, 0.4);
 }
 
-/* Адаптивность кнопки*/
+/* Адаптивность кнопки */
 @media (max-width: 768px) {
     .landing-cta-top-btn {
-        margin-right: 40px; /* Уменьшенный отступ для планшетов */
+        margin-right: 20px;
         padding: 8px 16px;
         font-size: 0.9rem;
     }
@@ -123,7 +122,7 @@
 
 @media (max-width: 480px) {
     .landing-cta-top-btn {
-        margin-right: 40px; /* Еще меньший отступ для мобильных */
+        margin-right: 15px;
         padding: 6px 12px;
         font-size: 0.8rem;
     }
@@ -138,10 +137,6 @@
     .gradient-text {
         font-size: 20px;
     }
-
-    .slogan {
-        font-size: 0.9rem;
-    }
 }
 
 @media (max-width: 480px) {
@@ -152,14 +147,10 @@
     .gradient-text {
         font-size: 18px;
     }
-
-    .slogan {
-        font-size: 0.8rem;
-    }
 }
 
 /* Общие стили для лендинга */
-.landing-body {
+body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: var(--landing-bg);
@@ -168,13 +159,35 @@
     transition: all 0.3s ease;
 }
 
-.landing-body::-webkit-scrollbar {
+body::-webkit-scrollbar {
     width: 8px;
 }
 
-.landing-body::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
     background: var(--landing-primary);
     border-radius: 4px;
+}
+
+/* Переключатель темы */
+.theme-toggle {
+    margin-left: auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.theme-icon {
+    font-size: 24px;
+    color: var(--landing-primary);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover .theme-icon {
+    color: var(--landing-text);
+}
+
+body.dark .theme-icon {
+    color: var(--landing-text);
 }
 
 /* Hero-секция */
@@ -282,7 +295,7 @@
 /* Адаптивный контейнер для видео */
 .landing-video-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* Соотношение 16:9 (9 / 16 = 0.5625) */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
     border-radius: 20px;
@@ -756,7 +769,6 @@
 .landing-security-link:hover {
     color: var(--landing-primary-dark);
     transform: translateX(5px);
-    display: inline-block;
 }
 
 .landing-security-visual {
@@ -870,7 +882,6 @@
 .landing-about-link:hover {
     color: var(--landing-primary-dark);
     transform: translateX(5px);
-    display: inline-block;
 }
 
 /* Модальные окна */
@@ -1065,31 +1076,35 @@
     margin-top: 20px;
 }
 
-/* Анимация для секции блога */
-.landing-blog-section {
-    animation: fadeIn 0.8s ease-out forwards;
+/* Кнопка "Наверх" */
+.landing-scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--landing-primary);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: var(--landing-shadow);
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-    .landing-blog-desc {
-        font-size: 1.1rem;
-    }
-
-    .landing-blog-extra {
-        font-size: 0.9rem;
-    }
+.landing-scroll-top:hover {
+    background: var(--landing-primary-dark);
+    transform: translateY(-3px);
 }
 
-@media (max-width: 480px) {
-    .landing-blog-desc {
-        font-size: 1rem;
-    }
-
-    .landing-blog-link {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-    }
+.landing-scroll-top.visible {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Анимации */
@@ -1109,7 +1124,8 @@
 .landing-security-section,
 .landing-community-section,
 .landing-final-cta-section,
-.landing-about-section {
+.landing-about-section,
+.landing-blog-section {
     animation: fadeIn 0.8s ease-out forwards;
 }
 
@@ -1198,6 +1214,14 @@
         flex-direction: column;
         gap: 10px;
     }
+
+    .landing-blog-desc {
+        font-size: 1.1rem;
+    }
+
+    .landing-blog-extra {
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1235,59 +1259,16 @@
         flex-direction: column;
         gap: 10px;
     }
-}
 
-/* Кнопка "Наверх" */
-.landing-scroll-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: var(--landing-primary);
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    box-shadow: var(--landing-shadow);
-}
+    .landing-blog-desc {
+        font-size: 1rem;
+    }
 
-.landing-scroll-top:hover {
-    background: var(--landing-primary-dark);
-    transform: translateY(-3px);
-}
+    .landing-blog-link {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
 
-.landing-scroll-top.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.theme-toggle {
-    margin-left: auto; /* Это сдвигает элемент максимально вправо */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-
-.theme-icon {
-    font-size: 24px;
-    color: var(--landing-primary);
-    transition: all 0.3s ease;
-}
-
-.theme-toggle:hover .theme-icon {
-    color: var(--landing-text);
-}
-
-/* Адаптивность */
-@media (max-width: 480px) {
     .landing-scroll-top {
         width: 40px;
         height: 40px;
