@@ -76,12 +76,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="tools.html">Инструменты</a>
     </div>
   </div>
-        <div class="header-actions">
+  <div class="header-actions">
     <button id="bulk-actions" class="btn" title="Массовые действия" disabled><span class="material-icons">select_all</span> Выбрать</button>
     <button id="add-client" class="btn gradient-btn" title="Добавить нового клиента"><span class="material-icons">add</span> Новый клиент</button>
   </div>
 </header>
- 
+
     <main>
       <div class="widgets">
         <div class="widget">
@@ -114,7 +114,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <input type="date" id="date-filter-end" title="Дата окончания" aria-label="Дата окончания">
         </div>
       </div>
-
+ 
       <div class="client-grid" id="client-grid" role="grid"></div>
     </main>
 
@@ -161,6 +161,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <input id="name" placeholder="Имя*" required aria-label="Имя клиента">
           <input id="company" placeholder="Компания" aria-label="Название компании">
           <input id="social" placeholder="Соцсеть (URL)" aria-label="Ссылка на соцсеть">
+          <!-- Добавляем поле email -->
+          <input id="email" type="email" placeholder="Email клиента" aria-label="Email клиента">
           <input id="website" placeholder="Сайт" aria-label="Ссылка на сайт">
           <div id="phones-container">
             <div class="phone-group">
@@ -247,7 +249,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li><a href="referral.html" class="community-link" aria-label="Реферальная программа">Реф. программа</a></li>
         </ul>
     </div>
-    
+  </div>
     
     <div class="footer-contact">
       <h4>Свяжитесь с нами</h4>
@@ -272,8 +274,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="https://cdn-icons-png.flaticon.com/128/2582/2582606.png" alt="Telegram" class="social-icon">
     </a>
   </div>
- </div>
-</div>
+</div> 
 
   <div class="footer-bottom">
     <div class="footer-copyright">
