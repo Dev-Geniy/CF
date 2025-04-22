@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Инструменты Client Flow</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="css/tools.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+  <!-- Хедер -->
+  <header>
+    <div class="logo">
+      <span class="gradient-text">Client Flow</span>
+      <span class="version">v1.3 Beta</span>
+    </div>
+    <nav class="nav-menu">
+      <a href="index.html">Главная</a>
+      <a href="crm.html">CRM</a>
+      <a href="community.html">Форум</a>
+      <a href="blog.html">Блог</a>
+      <a href="referral.html">Партнёрка</a>
+      <a href="tools.html" class="active">Инструменты</a>
+    </nav>
+    <div class="burger-menu">
+      <button class="burger-icon" aria-label="Открыть меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="burger-menu-content">
+        <a href="index.html">Главная</a>
+        <a href="crm.html">CRM</a>
+        <a href="community.html">Форум</a>
+        <a href="blog.html">Блог</a>
+        <a href="referral.html">Партнёрка</a>
+        <a href="tools.html" class="active">Инструменты</a>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="theme-toggle">
+        <span class="material-icons">brightness_6</span>
+        <input type="checkbox" id="theme-switch" aria-label="Переключить тему">
+      </div>
+    </div>
+  </header>
+
+  <!-- Основное содержимое -->
+ 
+    <main>
+    <section class="under-construction">
+      <span class="material-icons construction-icon">build</span>
+      <h1>Страница в разработке</h1>
+      <p>Наши инструменты для роста вашего бизнеса скоро появятся! Следите за обновлениями в нашем <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener">Telegram-канале</a>.</p>
+    </section>
+  </main>
+  <!-- Боковая панель -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-handle">
+      <span class="material-icons">chevron_left</span>
+    </div>
+    <div class="sidebar-content">
+      <div class="setting">
+        <span><span class="material-icons">palette</span> Тема</span>
+        <div class="theme-toggle">
+          <input type="checkbox" id="sidebar-theme-switch" aria-label="Переключить тему">
+        </div>
+      </div>
+      <div class="setting about-tools">
+        <span><span class="material-icons">info</span> О наших инструментах</span>
+        <p>Используйте мощные инструменты Client Flow для автоматизации маркетинга, создания сайтов, рекламы и многого другого!</p>
+      </div>
+      <div class="setting social-links">
+        <span><span class="material-icons">share</span> Мы в соцсетях</span>
+        <div class="social-icons">
+          <a href="https://x.com/HotDog850642" target="_blank" title="Client Flow в X">
+            <svg class="social-icon x-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="https://linkedin.com/company/client_flow_crm" target="_blank" title="Client Flow в LinkedIn">
+            <svg class="social-icon linkedin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a href="https://t.me/client_flow_crm" target="_blank" title="Client Flow в Telegram">
+            <svg class="social-icon telegram-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path d="M9.417 15.181l-.397 5.584c.568 0 .814-.244 1.109-.537l2.663-2.545 5.518 4.041c1.012.564 1.725.267 1.998-.931L23.93 3.821l.001-.001c.321-1.496-.541-2.081-1.527-1.714L2.929 8.588c-1.453.324-1.427 1.389-.209 1.989l5.074 1.581 11.78-7.418c.598-.378-.105-.904-.851-.573L7.814 13.5l-3.025-.919z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Футер -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="gradient-text">Client Flow</span>
+          <span class="version">v1.3</span>
+        </div>
+        <p>Простая и безопасная CRM для вашего бизнеса</p>
+        <p>Управляйте клиентами легко и бесплатно! Мы поддерживаем малый бизнес с 2025 года, предлагая надежное решение для управления вашими данными.</p>
+        <button class="btn gradient-btn changelog-btn" onclick="openModal('changelog-modal')" aria-label="Посмотреть изменения в версии"><span class="material-icons">history</span> Changelog</button>
+      </div>
+      <div class="footer-links">
+        <h4>Информация</h4>
+        <ul>
+          <li><a href="#" class="features-link" onclick="openModal('features-modal')" aria-label="Перейти к разделу функций">Функционал CRM</a></li>
+          <li><a href="#" class="support-link" onclick="openModal('support-modal')" aria-label="Перейти к поддержке">Тех. поддержка</a></li>
+          <li><a href="#" class="contact-link" onclick="openModal('contact-modal')" aria-label="Связаться с нами">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="blog.html" class="blog-link" aria-label="Перейти к блогу">Наш Блог</a></li>
+          <li><a href="community.html" class="community-link" aria-label="Перейти к форуму">Наш Мини-форум</a></li>
+          <li><a href="referral.html" class="referral-link" aria-label="Перейти к программе Пригласи друга">Наша реф. программа</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Свяжитесь с нами</h4>
+        <p><span class="material-icons">email</span> <a href="mailto:dev_geniy_partner@protonmail.com" aria-label="Отправить email">Напишите на почту</a></p>
+        <p><span class="material-icons">chat</span> <a href="#" class="feedback-link" onclick="openModal('feedback-modal')" aria-label="Оставить отзыв">Оставить отзыв</a></p>
+        <p><span class="material-icons">bug_report</span> <a href="#" class="bug-report-link" onclick="openModal('bug-report-modal')" aria-label="Сообщить об ошибке">Сообщить об ошибке</a></p>
+      </div>
+      <div class="footer-social">
+        <h4>Сообщество</h4>
+        <div class="social-icons">
+          <a href="https://github.com/dev-geniy/Client-Flow" target="_blank" rel="noopener" aria-label="GitHub"><span class="material-icons">code</span></a>
+          <a href="https://x.com/HotDog850642" target="_blank" rel="noopener" aria-label="X"><span class="material-icons">alternate_email</span></a>
+          <a href="https://linkedin.com/company/client_flow_crm" target="_blank" rel="noopener" aria-label="LinkedIn"><span class="material-icons">business</span></a>
+          <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener" aria-label="Telegram"><span class="material-icons">chat</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        <p>© <span id="current-year"></span> Client Flow. Все права защищены.</p>
+      </div>
+      <div class="footer-legal">
+        <a href="#privacy" class="privacy-link" onclick="openModal('privacy-modal')" aria-label="Политика конфиденциальности">Политика конфиденциальности</a>
+        <a href="#terms" class="terms-link" onclick="openModal('terms-modal')" aria-label="Условия использования">Условия использования</a>
+        <a href="#cookies" class="cookies-link" onclick="openModal('cookies-modal')" aria-label="Политика использования cookies">Cookies</a>
+      </div>
+      <div class="footer-extras">
+        <button id="back-to-top" class="btn gradient-btn" title="Вернуться наверх" aria-label="Вернуться наверх">
+          <span class="material-icons">arrow_upward</span>
+        </button>
+        <p class="powered-by">Powered by <a href="https://x.com/HotDog850642" target="_blank" rel="noopener" aria-label="DevGeniy">DevGeniy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Модальные окна для футера -->
+  <div class="modal" id="changelog-modal" role="dialog" aria-modal="true" aria-labelledby="changelog-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="changelog-title">Changelog</h2>
+      <p>Мы постоянно работаем над улучшением Client Flow, добавляя новые функции и исправляя ошибки. Здесь вы можете узнать, что нового в каждой версии приложения.</p>
+      <h3>Версия 1.3 Beta (Май 2025)</h3>
+      <ul>
+        <li><strong>Запуск инструментов:</strong> Добавлена страница с инструментами для маркетинга, создания сайтов и рекламы.</li>
+        <li><strong>Запуск блога:</strong> Форум заменён на корпоративный блог!</li>
+      </ul>
+      <h3>Версия 1.2 Beta (Апрель 2025)</h3>
+      <ul>
+        <li><strong>Форум для пользователей:</strong> Запустили форум для нашей платформы!</li>
+      </ul>
+      <h3>Версия 1.1 Beta (Март 2025)</h3>
+      <ul>
+        <li><strong>Массовая обработка:</strong> Выбирайте и удаляйте несколько клиентов одним действием.</li>
+        <li><strong>Улучшенный футер:</strong> Добавлены интерактивные элементы и модальные окна.</li>
+        <li><strong>Производительность:</strong> Оптимизирована фильтрация клиентов.</li>
+        <li><strong>Дизайн:</strong> Обновлён визуальный стиль приложения.</li>
+      </ul>
+      <h3>Версия 1.0 Beta (Январь 2025)</h3>
+      <ul>
+        <li><strong>Запуск Client Flow:</strong> Первая версия с базовой функциональностью управления клиентами.</li>
+        <li><strong>Основные функции:</strong> Добавление, редактирование, удаление клиентов, заметки, теги, дедлайны.</li>
+        <li><strong>Экспорт/импорт:</strong> Реализован экспорт и импорт данных в CSV.</li>
+        <li><strong>График роста:</strong> Интерактивный график для отслеживания клиентской базы.</li>
+      </ul>
+      <p>Следите за обновлениями в нашем <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener">Telegram-канале</a> или на <a href="https://x.com/HotDog850642" target="_blank" rel="noopener">X</a>!</p>
+    </div>
+  </div>
+
+  <div class="modal" id="features-modal" role="dialog" aria-modal="true" aria-labelledby="features-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="features-title">Функции Client Flow</h2>
+      <p>Client Flow создан, чтобы упростить управление клиентами для малого бизнеса. Вот что мы предлагаем:</p>
+      <ul class="features-list">
+        <li><strong>Управление клиентами:</strong> Создавайте карточки клиентов с полной информацией.</li>
+        <li><strong>Заметки и теги:</strong> Добавляйте заметки и теги для организации.</li>
+        <li><strong>Фильтрация:</strong> Находите клиентов по статусу, тегам или датам.</li>
+        <li><strong>Дедлайны:</strong> Устанавливайте дедлайны и получайте напоминания.</li>
+        <li><strong>Экспорт и импорт:</strong> Сохраняйте данные в CSV.</li>
+        <li><strong>График роста:</strong> Отслеживайте рост клиентской базы.</li>
+        <li><strong>Персонализация:</strong> Светлая и тёмная темы, управление анимациями.</li>
+        <li><strong>Массовая обработка:</strong> Удаление нескольких клиентов.</li>
+        <li><strong>Безопасность:</strong> Данные хранятся локально.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="modal" id="support-modal" role="dialog" aria-modal="true" aria-labelledby="support-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="support-title">Поддержка</h2>
+      <p>Мы здесь, чтобы помочь вам на каждом этапе использования Client Flow!</p>
+      <p><strong>Email:</strong> Напишите на <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a>.</p>
+      <p><strong>Telegram:</strong> Присоединяйтесь к сообществу: <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener">t.me/client_flow_crm</a>.</p>
+      <p><strong>GitHub:</strong> Сообщайте о проблемах: <a href="https://github.com/dev-geniy/Client-Flow/issues" target="_blank" rel="noopener">GitHub Issues</a>.</p>
+      <p><strong>FAQ:</strong> Скоро добавим раздел с частыми вопросами.</p>
+      <p>Мы ценим каждого пользователя и стремимся сделать Client Flow удобным!</p>
+    </div>
+  </div>
+
+  <div class="modal" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="contact-title">Контакты</h2>
+      <p>Свяжитесь с нами, чтобы задать вопрос или поделиться впечатлениями!</p>
+      <p><strong>Email:</strong> <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a>.</p>
+      <p><strong>GitHub:</strong> <a href="https://github.com/dev-geniy/Client-Flow" target="_blank" rel="noopener">github.com/dev-geniy/Client-Flow</a>.</p>
+      <p><strong>X:</strong> <a href="https://x.com/HotDog850642" target="_blank" rel="noopener">@HotDog850642</a>.</p>
+      <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/company/client_flow_crm" target="_blank" rel="noopener">linkedin.com/company/client_flow_crm</a>.</p>
+      <p><strong>Telegram:</strong> <a href="https://t.me/client_flow_crm" target="_blank" rel="noopener">t.me/client_flow_crm</a>.</p>
+      <p>Мы открыты к сотрудничеству и вашим идеям!</p>
+    </div>
+  </div>
+
+  <div class="modal" id="feedback-modal" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="feedback-title">Оставить отзыв</h2>
+      <form id="feedback-form">
+        <textarea id="feedback-text" placeholder="Ваш отзыв..." aria-label="Введите ваш отзыв" required></textarea>
+        <div class="actions">
+          <button type="submit" class="btn gradient-btn" title="Отправить отзыв" aria-label="Отправить отзыв">Отправить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="bug-report-modal" role="dialog" aria-modal="true" aria-labelledby="bug-report-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="bug-report-title">Сообщить об ошибке</h2>
+      <form id="bug-report-form">
+        <textarea id="bug-report-text" placeholder="Опишите проблему..." aria-label="Опишите проблему" required></textarea>
+        <div class="actions">
+          <button type="submit" class="btn gradient-btn" title="Отправить сообщение об ошибке" aria-label="Отправить сообщение об ошибке">Отправить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="privacy-title">Политика конфиденциальности</h2>
+      <p>В Client Flow мы понимаем, насколько важна безопасность ваших данных.</p>
+      <p><strong>Ваши данные — только ваши.</strong> Все данные хранятся локально на вашем устройстве. Мы не передаём их третьим лицам и не храним на серверах.</p>
+      <p><strong>Почему это безопасно?</strong> Отсутствие серверов исключает риск взлома. Даже мы не имеем доступа к вашим данным.</p>
+      <p><strong>Аналитика.</strong> Мы используем Google Tag Manager для анонимной аналитики, не содержащей персональных данных.</p>
+      <p><strong>Ваши права.</strong> Вы полностью контролируете данные и можете экспортировать или удалить их.</p>
+      <p>Вопросы? Пишите на <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a>.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="terms-modal" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="terms-title">Условия использования</h2>
+      <p>Используя Client Flow, вы соглашаетесь с этими условиями.</p>
+      <p><strong>Общие положения.</strong> Приложение предоставляется "как есть". Мы не несём ответственности за ошибки или потерю данных.</p>
+      <p><strong>Хранение данных.</strong> Данные хранятся локально. Рекомендуем экспортировать их в CSV.</p>
+      <p><strong>Ответственность.</strong> Используйте приложение только в законных целях.</p>
+      <p><strong>Обновления.</strong> Мы не гарантируем совместимость обновлений со всеми устройствами.</p>
+      <p><strong>Ограничение ответственности.</strong> Мы не несём ответственности за убытки от использования приложения.</p>
+      <p><strong>Изменения условий.</strong> Условия могут обновляться. Следите за уведомлениями в Telegram или X.</p>
+      <p>Вопросы? Пишите на <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a>.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="cookies-modal" role="dialog" aria-modal="true" aria-labelledby="cookies-title">
+    <div class="modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <h2 id="cookies-title">Политика использования Cookies</h2>
+      <p>Мы используем cookies для улучшения работы приложения.</p>
+      <p><strong>Что такое cookies?</strong> Это файлы для сохранения настроек и аналитики.</p>
+      <p><strong>Как мы используем cookies?</strong></p>
+      <ul>
+        <li><strong>Функциональность:</strong> Сохранение настроек темы.</li>
+        <li><strong>Аналитика:</strong> Анонимная статистика через Google Tag Manager.</li>
+      </ul>
+      <p><strong>Контроль.</strong> Отключите cookies в браузере, но это может повлиять на функциональность.</p>
+      <p><strong>Безопасность.</strong> Cookies не содержат персональных данных.</p>
+      <p>Вопросы? Пишите на <a href="mailto:dev_geniy_partner@protonmail.com">dev_geniy_partner@protonmail.com</a>.</p>
+    </div>
+  </div>
+
+  <!-- Модальные окна для инструментов -->
+  <div class="modal tool-modal" id="tool-modal-mailchimp" role="dialog" aria-modal="true" aria-labelledby="tool-mailchimp-title">
+    <div class="modal-content tool-modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <div class="tool-landing">
+        <h2 id="tool-mailchimp-title">Mailchimp</h2>
+        <p class="tool-subtitle">Автоматизируйте email-рассылки для вашей клиентской базы!</p>
+        <div class="tool-hero">
+          <span class="material-icons tool-icon">email</span>
+        </div>
+        <div class="tool-features">
+          <h3>Основные возможности</h3>
+          <ul>
+            <li>Создание персонализированных email-кампаний.</li>
+            <li>Аналитика открытий и кликов.</li>
+            <li>Сегментация аудитории.</li>
+            <li>Автоматизация цепочек писем.</li>
+          </ul>
+        </div>
+        <div class="tool-pricing">
+          <h3>Тарифы</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>План</th>
+                <th>Цена</th>
+                <th>Функции</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Бесплатный</td>
+                <td>$0/мес</td>
+                <td>До 500 контактов, базовые шаблоны</td>
+              </tr>
+              <tr>
+                <td>Стандарт</td>
+                <td>$13/мес</td>
+                <td>До 5000 контактов, автоматизация</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn gradient-btn tool-cta">Попробовать Mailchimp</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal tool-modal" id="tool-modal-cf-website" role="dialog" aria-modal="true" aria-labelledby="tool-cf-website-title">
+    <div class="modal-content tool-modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <div class="tool-landing">
+        <h2 id="tool-cf-website-title">CF Конструктор сайтов</h2>
+        <p class="tool-subtitle">Создавайте профессиональные сайты без навыков программирования!</p>
+        <div class="tool-hero">
+          <span class="material-icons tool-icon">web</span>
+        </div>
+        <div class="tool-features">
+          <h3>Основные возможности</h3>
+          <ul>
+            <li>Интуитивный drag-and-drop редактор.</li>
+            <li>SEO-оптимизация.</li>
+            <li>Мобильная адаптивность.</li>
+            <li>Интеграция с CRM.</li>
+          </ul>
+        </div>
+        <div class="tool-pricing">
+          <h3>Тарифы</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>План</th>
+                <th>Цена</th>
+                <th>Функции</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Базовый</td>
+                <td>$5/мес</td>
+                <td>1 сайт, базовые шаблоны</td>
+              </tr>
+              <tr>
+                <td>Про</td>
+                <td>$15/мес</td>
+                <td>Неограниченные сайты, премиум-функции</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn gradient-btn tool-cta">Попробовать Конструктор</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal tool-modal" id="tool-modal-cf-email" role="dialog" aria-modal="true" aria-labelledby="tool-cf-email-title">
+    <div class="modal-content tool-modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <div class="tool-landing">
+        <h2 id="tool-cf-email-title">CF Конструктор писем</h2>
+        <p class="tool-subtitle">Создавайте красивые письма для рассылок за минуты!</p>
+        <div class="tool-hero">
+          <span class="material-icons tool-icon">drafts</span>
+        </div>
+        <div class="tool-features">
+          <h3>Основные возможности</h3>
+          <ul>
+            <li>Шаблоны для любых кампаний.</li>
+            <li>Drag-and-drop редактор.</li>
+            <li>Интеграция с Mailchimp.</li>
+            <li>Аналитика доставки.</li>
+          </ul>
+        </div>
+        <div class="tool-pricing">
+          <h3>Тарифы</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>План</th>
+                <th>Цена</th>
+                <th>Функции</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Бесплатный</td>
+                <td>$0/мес</td>
+                <td>Базовые шаблоны</td>
+              </tr>
+              <tr>
+                <td>Премиум</td>
+                <td>$10/мес</td>
+                <td>Полный доступ, аналитика</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn gradient-btn tool-cta">Попробовать Конструктор</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal tool-modal" id="tool-modal-teaser-ads" role="dialog" aria-modal="true" aria-labelledby="tool-teaser-ads-title">
+    <div class="modal-content tool-modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <div class="tool-landing">
+        <h2 id="tool-teaser-ads-title">Тизерная реклама</h2>
+        <p class="tool-subtitle">Привлекайте клиентов через тизерные рекламные сети!</p>
+        <div class="tool-hero">
+          <span class="material-icons tool-icon">campaign</span>
+        </div>
+        <div class="tool-features">
+          <h3>Основные возможности</h3>
+          <ul>
+            <li>Создание привлекательных тизеров.</li>
+            <li>Таргетинг по интересам.</li>
+            <li>Аналитика кликов и конверсий.</li>
+            <li>Интеграция с популярными сетями.</li>
+          </ul>
+        </div>
+        <div class="tool-pricing">
+          <h3>Тарифы</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>План</th>
+                <th>Цена</th>
+                <th>Функции</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Стартовый</td>
+                <td>$20/мес</td>
+                <td>До 1000 кликов, базовый таргетинг</td>
+              </tr>
+              <tr>
+                <td>Профессиональный</td>
+                <td>$50/мес</td>
+                <td>Неограниченные клики, полный таргетинг</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn gradient-btn tool-cta">Запустить рекламу</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal tool-modal" id="tool-modal-social-ads" role="dialog" aria-modal="true" aria-labelledby="tool-social-ads-title">
+    <div class="modal-content tool-modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <div class="tool-landing">
+        <h2 id="tool-social-ads-title">Реклама в соцсетях</h2>
+        <p class="tool-subtitle">Запускайте таргетированную рекламу в социальных сетях!</p>
+        <div class="tool-hero">
+          <span class="material-icons tool-icon">share</span>
+        </div>
+        <div class="tool-features">
+          <h3>Основные возможности</h3>
+          <ul>
+            <li>Таргетинг по демографии и интересам.</li>
+            <li>Создание визуальных объявлений.</li>
+            <li>Интеграция с Facebook, Instagram, X.</li>
+            <li>Аналитика ROI.</li>
+          </ul>
+        </div>
+        <div class="tool-pricing">
+          <h3>Тарифы</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>План</th>
+                <th>Цена</th>
+                <th>Функции</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Базовый</td>
+                <td>$30/мес</td>
+                <td>1 платформа, ограниченный таргетинг</td>
+              </tr>
+              <tr>
+                <td>Премиум</td>
+                <td>$100/мес</td>
+                <td>Все платформы, полный таргетинг</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn gradient-btn tool-cta">Запустить рекламу</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal tool-modal" id="tool-modal-analytics" role="dialog" aria-modal="true" aria-labelledby="tool-analytics-title">
+    <div class="modal-content tool-modal-content glass" tabindex="0">
+      <span class="close material-icons" title="Закрыть" aria-label="Закрыть модальное окно">close</span>
+      <div class="tool-landing">
+        <h2 id="tool-analytics-title">CF Аналитика</h2>
+        <p class="tool-subtitle">Анализируйте поведение клиентов и эффективность кампаний!</p>
+        <div class="tool-hero">
+          <span class="material-icons tool-icon">analytics</span>
+        </div>
+        <div class="tool-features">
+          <h3>Основные возможности</h3>
+          <ul>
+            <li>Отслеживание поведения пользователей.</li>
+            <li>Визуализация данных в графиках.</li>
+            <li>Интеграция с CRM и рекламой.</li>
+            <li>Отчёты в реальном времени.</li>
+          </ul>
+        </div>
+        <div class="tool-pricing">
+          <h3>Тарифы</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>План</th>
+                <th>Цена</th>
+                <th>Функции</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Бесплатный</td>
+                <td>$0/мес</td>
+                <td>Базовые отчёты</td>
+              </tr>
+              <tr>
+                <td>Про</td>
+                <td>$25/мес</td>
+                <td>Полные отчёты, интеграции</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn gradient-btn tool-cta">Попробовать Аналитику</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/tools.js"></script>
+</body>
+</html>
