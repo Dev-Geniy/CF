@@ -1332,7 +1332,6 @@ body:not(.dark) #bug-report-text:focus {
 .footer-social .social-icons {
   display: flex;
   gap: 1rem;
-  justify-content: center;
 }
 
 .footer-social .social-icon {
