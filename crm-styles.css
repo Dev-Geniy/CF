@@ -375,13 +375,13 @@ button[title]:hover::after {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: opacity 0.3s ease; /* Добавляем плавное исчезновение */
+  transition: opacity 0.3s ease;
 }
 
 /* Скрываем стрелку, когда панель открыта */
 .sidebar.open .sidebar-handle {
   opacity: 0;
-  pointer-events: none; /* Убираем возможность клика по стрелке, когда она скрыта */
+  pointer-events: none;
 }
 
 .sidebar-content {
@@ -556,44 +556,44 @@ form textarea { min-height: 100px; resize: vertical; }
   background: none;
   border: none;
   padding: 8px;
-  border-radius: 50%; /* Круглая форма */
+  border-radius: 50%;
   cursor: pointer;
-  transition: all 0.3s ease; /* Плавные переходы */
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px; /* Фиксированная ширина */
+  width: 36px;
   height: 36px; /* Фиксированная высота */
 }
 
 /* Иконки Material Icons внутри кнопок карточек */
 .client-card .actions button .material-icons {
-  font-size: 20px; /* Размер иконок */
-  color: var(--text); /* Цвет текста по умолчанию */
+  font-size: 20px;
+  color: var(--text);
 }
 
 /* Кнопка "Редактировать" внутри карточек */
 .client-card .actions button[title="Редактировать клиента"] {
-  background: rgba(124, 77, 255, 0.1); /* Светло-фиолетовый фон */
+  background: rgba(124, 77, 255, 0.1);
 }
 
 .client-card .actions button[title="Редактировать клиента"]:hover {
-  background: var(--primary); /* Основной цвет при наведении */
-  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3); /* Тень */
+  background: var(--primary);
+  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
 }
 
 .client-card .actions button[title="Редактировать клиента"]:hover .material-icons {
-  color: #fff; /* Белый цвет иконки при наведении */
+  color: #fff;
 }
 
 /* Кнопка "Удалить" внутри карточек */
 .client-card .actions button[title="Удалить клиента"] {
-  background: rgba(244, 67, 54, 0.1); /* Светло-красный фон */
+  background: rgba(244, 67, 54, 0.1);
 }
 
 .client-card .actions button[title="Удалить клиента"]:hover {
-  background: #f44336; /* Красный цвет при наведении */
-  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3); /* Тень */
+  background: #f44336;
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
 }
 
 .client-card .actions button[title="Удалить клиента"]:hover .material-icons {
@@ -661,15 +661,15 @@ form textarea { min-height: 100px; resize: vertical; }
 
 /* Делаем карточку контейнером для абсолютного позиционирования */
 .client-card {
-  position: relative; /* Добавляем, чтобы .actions позиционировался относительно карточки */
-  padding-bottom: 60px; /* Отступ снизу для контента, чтобы кнопки не перекрывали */
+  position: relative; 
+  padding-bottom: 60px;
 }
 
 /* Прижимаем .actions к нижнему правому углу */
 .client-card .actions {
   position: absolute;
-  bottom: 10px; /* Отступ от низа */
-  right: 10px; /* Отступ от правого края */
+  bottom: 10px;
+  right: 10px;
 }
 
 
@@ -731,8 +731,6 @@ form textarea { min-height: 100px; resize: vertical; }
   box-shadow: 0 0 8px rgba(124, 77, 255, 0.3);
 }
 
-/* Существующие стили остаются без изменений, добавляем только это: */
-
 /* Заметки в карточке */
 .client-card .notes {
   font-size: 13px;
@@ -757,13 +755,13 @@ form textarea { min-height: 100px; resize: vertical; }
 /* Кастомизация select */
 .select-wrapper select#card-layout {
   width: 100%;
-  padding: 10px 30px 10px 12px; /* Отступы с учётом стрелки справа */
+  padding: 10px 30px 10px 12px; 
   border: none;
   border-radius: 12px;
   background: var(--glass-bg);
   font-size: 12px;
   color: var(--text);
-  appearance: none; /* Убираем стандартный вид */
+  appearance: none; 
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: var(--shadow);
@@ -782,14 +780,14 @@ form textarea { min-height: 100px; resize: vertical; }
 
 /* Псевдоэлемент для стрелки */
 .select-wrapper::after {
-  content: '▼'; /* Символ стрелки вниз */
+  content: '▼';
   position: absolute;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 12px;
   color: var(--primary);
-  pointer-events: none; /* Чтобы стрелка не мешала кликам */
+  pointer-events: none;
   transition: transform 0.3s ease;
 }
 
@@ -1195,6 +1193,7 @@ body:not(.dark) #bug-report-text:focus {
     opacity: 1;
     visibility: visible;
 }
+
 /* БЕРГЕР МЕНЮ */
 /* Стили для навигационного меню (ПК-версия) */
 .nav-menu {
@@ -1205,7 +1204,7 @@ body:not(.dark) #bug-report-text:focus {
 
 .nav-menu a {
   text-decoration: none;
-  color: var(--text); /* Используем --text */
+  color: var(--text);
   font-weight: 500;
   padding: 5px 10px;
   transition: color 0.3s ease;
@@ -1328,6 +1327,7 @@ body:not(.dark) #bug-report-text:focus {
   }
 }
 
+/* ИКОНКИ */
 /* Социальные иконки в футере */
 .footer-social .social-icons {
   display: flex;
@@ -1358,5 +1358,57 @@ body.dark .footer-social .social-icon {
   .footer-social .social-icon {
     width: 20px;
     height: 20px;
+  }
+}
+
+/* Чекбокс */
+/* Стили для чекбоксов массового выбора */
+.client-card .checkbox {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+.client-card .checkbox input[type="checkbox"] {
+  width: 22px; /* Увеличенный размер */
+  height: 22px;
+  appearance: none; /* Убираем стандартный вид */
+  background: var(--card-bg); /* Фон чекбокса */
+  border: 2px solid var(--primary); /* Граница */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.client-card .checkbox input[type="checkbox"]:checked {
+  background: var(--primary); /* Фон при выборе */
+  border-color: var(--primary-dark);
+  position: relative;
+}
+
+.client-card .checkbox input[type="checkbox"]:checked::after {
+  content: '\2713'; /* Галочка */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--background); /* Цвет галочки (обычно белый) */
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.client-card .checkbox input[type="checkbox"]:hover {
+  border-color: var(--primary-dark);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .client-card .checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+  }
+
+  .client-card .checkbox input[type="checkbox"]:checked::after {
+    font-size: 14px;
   }
 }
