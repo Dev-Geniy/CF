@@ -1226,22 +1226,20 @@ body:not(.dark) #bug-report-text:focus {
 
 /* Стили для бургер-меню (мобильная версия) */
 .burger-icon {
-  background: var(--card-bg);
-  box-shadow: var(--shadow);
+  background: none; /* Убираем фон */
+  box-shadow: none; /* Убираем тень, если она не нужна */
   border-radius: 10px;
   cursor: pointer;
   padding: 5px;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  min-width: 35px;
-  min-height: 30px;
 }
 
 .burger-icon span {
   width: 25px;
   height: 3px;
-  background-color: var(--text); /* Исправлено: используем --text */
+  background-color: var(--text); /* Используем --text вместо --text-color */
   transition: all 0.3s ease;
 }
 
@@ -1411,4 +1409,292 @@ body.dark .footer-social .social-icon {
   .client-card .checkbox input[type="checkbox"]:checked::after {
     font-size: 14px;
   }
+}
+
+/* Контейнер для подменю */
+.contact-submenu-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Подменю */
+.contact-submenu {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+/* Открытое состояние подменю */
+.contact-submenu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Стили для кнопок в подменю */
+.contact-submenu button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.contact-submenu button:hover {
+  background: var(--primary-light);
+}
+
+/* Иконки в подменю */
+.contact-submenu button .material-icons {
+  font-size: 20px;
+  color: var(--primary);
+}
+
+/* Основная кнопка "Написать клиенту" */
+/* Стили для контейнера .actions */
+.client-card .actions {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Уменьшаем расстояние между кнопками */
+  justify-content: flex-end;
+  flex-wrap: nowrap; /* Предотвращаем перенос кнопок */
+}
+
+/* Общие стили для кнопок в .actions */
+.client-card .actions button {
+  background: none;
+  border: none;
+  padding: 6px; /* Уменьшаем внутренние отступы */
+  border-radius: 50%; /* Круглые кнопки */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; /* Уменьшенный размер кнопок */
+  height: 32px;
+}
+
+/* Иконки Material Icons внутри кнопок */
+.client-card .actions button .material-icons {
+  font-size: 18px; /* Уменьшаем размер иконок */
+  color: var(--text);
+}
+
+/* Стили для чекбокса */
+.client-card .actions .checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.client-card .actions .checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* Кнопка "Написать на email" */
+.client-card .actions button[title="Написать на email"] {
+  background: rgba(124, 77, 255, 0.1); /* Светло-фиолетовый фон */
+}
+
+.client-card .actions button[title="Написать на email"]:hover {
+  background: var(--primary);
+  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
+}
+
+.client-card .actions button[title="Написать на email"]:hover .material-icons {
+  color: #fff;
+}
+
+/* Кнопка "Добавить в календарь" */
+.client-card .actions button[title="Добавить в календарь"] {
+  background: rgba(0, 200, 83, 0.1); /* Светло-зелёный фон */
+}
+
+.client-card .actions button[title="Добавить в календарь"]:hover {
+  background: var(--active-color); /* #00c853 */
+  box-shadow: 0 4px 12px rgba(0, 200, 83, 0.3);
+}
+
+.client-card .actions button[title="Добавить в календарь"]:hover .material-icons {
+  color: #fff;
+}
+
+/* Кнопка "Написать клиенту" (с подменю) */
+.client-card .actions button[title="Написать клиенту"] {
+  background: rgba(255, 215, 0, 0.1); /* Светло-жёлтый фон */
+}
+
+.client-card .actions button[title="Написать клиенту"]:hover {
+  background: #ffd700; /* Жёлтый цвет */
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.client-card .actions button[title="Написать клиенту"]:hover .material-icons {
+  color: #fff;
+}
+
+/* Кнопка "Редактировать клиента" */
+.client-card .actions button[title="Редактировать клиента"] {
+  background: rgba(124, 77, 255, 0.1);
+}
+
+.client-card .actions button[title="Редактировать клиента"]:hover {
+  background: var(--primary);
+  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
+}
+
+.client-card .actions button[title="Редактировать клиента"]:hover .material-icons {
+  color: #fff;
+}
+
+/* Кнопка "Удалить клиента" */
+.client-card .actions button[title="Удалить клиента"] {
+  background: rgba(244, 67, 54, 0.1);
+}
+
+.client-card .actions button[title="Удалить клиента"]:hover {
+  background: #f44336;
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+.client-card .actions button[title="Удалить клиента"]:hover .material-icons {
+  color: #fff;
+}
+
+/* Стили для подменю .contact-submenu-wrapper */
+.client-card .actions .contact-submenu-wrapper {
+  position: relative; /* Для позиционирования подменю */
+}
+
+/* Стили для подменю .contact-submenu */
+.client-card .actions .contact-submenu {
+  display: none; /* По умолчанию скрыто */
+  position: absolute;
+  bottom: 40px; /* Располагаем подменю над кнопкой */
+  right: 0;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  padding: 5px;
+  z-index: 10;
+  display: flex;
+  gap: 5px;
+}
+
+.client-card .actions .contact-submenu.open {
+  display: flex; /* Показываем, когда класс .open добавлен */
+}
+
+/* Кнопки внутри подменю */
+.client-card .actions .contact-submenu button {
+  background: none;
+  border: none;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* WhatsApp */
+.client-card .actions .contact-submenu button[title="Написать в WhatsApp"] {
+  background: rgba(37, 211, 102, 0.1); /* Светло-зелёный фон */
+}
+
+.client-card .actions .contact-submenu button[title="Написать в WhatsApp"]:hover {
+  background: #25d366; /* Цвет WhatsApp */
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.client-card .actions .contact-submenu button[title="Написать в WhatsApp"]:hover .material-icons {
+  color: #fff;
+}
+
+/* Viber */
+.client-card .actions .contact-submenu button[title="Написать в Viber"] {
+  background: rgba(145, 91, 230, 0.1); /* Светло-фиолетовый фон */
+}
+
+.client-card .actions .contact-submenu button[title="Написать в Viber"]:hover {
+  background: #915be6; /* Цвет Viber */
+  box-shadow: 0 4px 12px rgba(145, 91, 230, 0.3);
+}
+
+.client-card .actions .contact-submenu button[title="Написать в Viber"]:hover .material-icons {
+  color: #fff;
+}
+
+/* Telegram */
+.client-card .actions .contact-submenu button[title="Написать в Telegram"] {
+  background: rgba(0, 136, 204, 0.1); /* Светло-голубой фон */
+}
+
+.client-card .actions .contact-submenu button[title="Написать в Telegram"]:hover {
+  background: #0088cc; /* Цвет Telegram */
+  box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
+}
+
+.client-card .actions .contact-submenu button[title="Написать в Telegram"]:hover .material-icons {
+  color: #fff;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .client-card .actions {
+    gap: 4px; /* Ещё меньше расстояние на мобильных */
+  }
+
+  .client-card .actions button {
+    width: 28px;
+    height: 28px;
+    padding: 5px;
+  }
+
+  .client-card .actions button .material-icons {
+    font-size: 16px;
+  }
+
+  .client-card .actions .checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+  }
+
+  .client-card .actions .contact-submenu {
+    bottom: 36px; /* Корректируем позицию на мобильных */
+  }
+}
+
+/* Доступность: фокус для клавиатуры */
+.client-card .actions button:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
