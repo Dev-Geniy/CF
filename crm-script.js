@@ -134,24 +134,22 @@ function renderClients(filter = 'all', tagFilter = '', dateStart = '', dateEnd =
     if (cardLayout.value === 'compact') {
       card.classList.add('compact');
       card.innerHTML = `
-        <div class="checkbox">
-          <input type="checkbox" ${selectedClients.has(globalIndex) ? 'checked' : ''} aria-label="Выбрать клиента">
-        </div>
         <h3>${escapeHtml(client.name)}</h3>
         ${client.company ? `<p>${escapeHtml(client.company)}</p>` : ''}
         ${client.tags?.length ? `<div class="tags"><span class="tag">#${escapeHtml(client.tags[0])}</span></div>` : ''}
         <div class="actions">
+          <div class="checkbox">
+            <input type="checkbox" ${selectedClients.has(globalIndex) ? 'checked' : ''} aria-label="Выбрать клиента">
+          </div>
           <button onclick="editClient(${globalIndex})" title="Редактировать клиента" aria-label="Редактировать клиента"><span class="material-icons">edit</span></button>
           <button onclick="showConfirmDelete(${globalIndex})" title="Удалить клиента" aria-label="Удалить клиента"><span class="material-icons">delete</span></button>
         </div>
       `;
     } else {
       card.innerHTML = `
-        <div class="checkbox">
-          <input type="checkbox" ${selectedClients.has(globalIndex) ? 'checked' : ''} aria-label="Выбрать клиента">
-        </div>
         <h3>${escapeHtml(client.name)}</h3>
         ${client.company ? `<p>${escapeHtml(client.company)}</p>` : ''}
+        ${client.email ? `<p><a href="mailto:${escapeHtml(client.email)}">${escapeHtml(client.email)}</a></p>` : ''} <!-- Добавляем отображение email -->
         ${client.image ? `<img src="${escapeHtml(client.image)}" alt="${escapeHtml(client.name)}" loading="lazy">` : ''}
         ${client.social ? `<p><a href="${escapeHtml(client.social)}" target="_blank">${escapeHtml(client.social.split('/').pop())}</a></p>` : ''}
         ${client.phones?.length ? client.phones.map(phone => `<p>${escapeHtml(phone)}</p>`).join('') : ''}
@@ -160,6 +158,9 @@ function renderClients(filter = 'all', tagFilter = '', dateStart = '', dateEnd =
         ${progress !== null ? `<div class="deadline-progress ${progress >= 100 ? 'expired' : ''}" style="width: ${Math.min(progress, 100)}%;" title="Дедлайн: ${new Date(client.deadline).toLocaleString()}"></div>` : ''}
         <div class="status-indicator"></div>
         <div class="actions">
+          <div class="checkbox">
+            <input type="checkbox" ${selectedClients.has(globalIndex) ? 'checked' : ''} aria-label="Выбрать клиента">
+          </div>
           <button onclick="editClient(${globalIndex})" title="Редактировать клиента" aria-label="Редактировать клиента"><span class="material-icons">edit</span></button>
           <button onclick="showConfirmDelete(${globalIndex})" title="Удалить клиента" aria-label="Удалить клиента"><span class="material-icons">delete</span></button>
         </div>
@@ -331,11 +332,17 @@ document.getElementById('client-form').addEventListener('submit', (e) => {
     .filter(v => v);
 
   const social = document.getElementById('social').value.trim();
+  const email = document.getElementById('email').value.trim(); // Добавляем email
   const website = document.getElementById('website').value.trim();
 
   if (social && !isValidUrl(social)) {
     showNotification('Некорректный URL соцсети');
     console.log('Ошибка валидации: social URL');
+    return;
+  }
+  if (email && !isValidEmail(email)) {
+    showNotification('Некорректный email');
+    console.log('Ошибка валидации: email');
     return;
   }
   if (website && !isValidUrl(website)) {
@@ -348,6 +355,7 @@ document.getElementById('client-form').addEventListener('submit', (e) => {
     name: document.getElementById('name').value.trim(),
     company: document.getElementById('company').value.trim(),
     social,
+    email, // Сохраняем email
     website,
     phones,
     image: document.getElementById('image').value.trim(),
@@ -395,8 +403,9 @@ window.editClient = (index) => {
   const client = clients[index];
   document.getElementById('name').value = client.name;
   document.getElementById('company').value = client.company || '';
-  document.getElementById('social').value = client.social;
-  document.getElementById('website').value = client.website;
+  document.getElementById('social').value = client.social || '';
+  document.getElementById('email').value = client.email || ''; // Добавляем email
+  document.getElementById('website').value = client.website || '';
   const phonesContainer = document.getElementById('phones-container');
   phonesContainer.innerHTML = client.phones?.length ? client.phones.map((phone, i) => `
     <div class="phone-group">
@@ -413,7 +422,7 @@ window.editClient = (index) => {
   document.getElementById('tags').value = client.tags?.join(', ') || '';
   document.getElementById('deadline').value = client.deadline || '';
   document.getElementById('status').value = client.status;
-  document.getElementById('notes').value = client.notes;
+  document.getElementById('notes').value = client.notes || '';
   document.getElementById('favorite').checked = client.favorite || false;
   document.getElementById('client-form').dataset.index = index;
   trapFocus(modal);
@@ -501,13 +510,14 @@ document.getElementById('export-btn').addEventListener('click', () => {
     : clients;
 
   const csvContent = "data:text/csv;charset=utf-8,\uFEFF" +
-    "Имя,Компания,Телефоны,Соцсеть,Сайт,Изображение,Теги,Дедлайн,Статус,Заметки,Избранный,Дата создания\n" +
+    "Имя,Компания,Email,Соцсеть,Сайт,Телефоны,Изображение,Теги,Дедлайн,Статус,Заметки,Избранный,Дата создания\n" + // Добавляем Email в заголовок
     clientsToExport.map(c => [
       escapeCsvValue(c.name),
       escapeCsvValue(c.company),
-      escapeCsvValue(c.phones?.join(';')),
+      escapeCsvValue(c.email), // Добавляем email
       escapeCsvValue(c.social),
       escapeCsvValue(c.website),
+      escapeCsvValue(c.phones?.join(';')),
       escapeCsvValue(c.image),
       escapeCsvValue(c.tags?.join(';')),
       escapeCsvValue(c.deadline),
@@ -573,15 +583,16 @@ document.getElementById('import-btn').addEventListener('click', () => {
           }
           fields.push(currentField);
 
-          if (fields.length < 12) throw new Error('Некорректный формат CSV');
+          if (fields.length < 13) throw new Error('Некорректный формат CSV'); // Обновляем на 13 полей
 
-          const [name, company, phones, social, website, image, tags, deadline, status, notes, favorite, createdAt] = fields;
+          const [name, company, email, social, website, phones, image, tags, deadline, status, notes, favorite, createdAt] = fields; // Добавляем email
           return {
             name: name.replace(/^"|"$/g, '').replace(/""/g, '"') || '',
             company: company.replace(/^"|"$/g, '').replace(/""/g, '"') || '',
-            phones: phones.replace(/^"|"$/g, '').replace(/""/g, '"').split(';').filter(p => p) || [],
+            email: email.replace(/^"|"$/g, '').replace(/""/g, '"') || '', // Добавляем email
             social: social.replace(/^"|"$/g, '').replace(/""/g, '"') || '',
             website: website.replace(/^"|"$/g, '').replace(/""/g, '"') || '',
+            phones: phones.replace(/^"|"$/g, '').replace(/""/g, '"').split(';').filter(p => p) || [],
             image: image.replace(/^"|"$/g, '').replace(/""/g, '"') || '',
             tags: tags.replace(/^"|"$/g, '').replace(/""/g, '"').split(';').filter(t => t) || [],
             deadline: deadline.replace(/^"|"$/g, '').replace(/""/g, '"') || '',
@@ -610,11 +621,11 @@ document.getElementById('import-btn').addEventListener('click', () => {
 
 // Send email
 document.getElementById('send-email').addEventListener('click', () => {
-  const email = document.getElementById('social').value;
+  const email = document.getElementById('email').value; // Используем поле email
   if (email && isValidEmail(email)) {
     window.location.href = `mailto:${email}`;
   } else {
-    showNotification('Некорректный email');
+    showNotification('Некорректный или отсутствующий email');
   }
 });
 
@@ -881,4 +892,3 @@ document.addEventListener('DOMContentLoaded', () => {
     showNotification('Хранилище недоступно на устройстве');
   }
 });
-// КОНЕЦ ПРОВЕРКИ
