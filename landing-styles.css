@@ -174,16 +174,23 @@ body::-webkit-scrollbar-thumb {
     cursor: pointer;
     display: flex;
     align-items: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+body.dark .theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .theme-icon {
     font-size: 24px;
     color: var(--landing-primary);
-    transition: all 0.3s ease;
-}
-
-.theme-toggle:hover .theme-icon {
-    color: var(--landing-text);
+    transition: color 0.3s ease;
 }
 
 body.dark .theme-icon {
