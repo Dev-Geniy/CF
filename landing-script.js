@@ -1,22 +1,51 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Основные переменные
+    // Упрощённое переключение темы
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+
+    // Проверка наличия переключателя
+    if (!themeToggle) {
+        console.warn('Элемент .theme-toggle не найден на странице');
+        return;
+    }
+
+    // Проверка доступности localStorage
+    try {
+        localStorage.setItem('test', 'ok');
+        localStorage.removeItem('test');
+    } catch (e) {
+        console.error('localStorage недоступен:', e);
+        return;
+    }
+
+    // Применение сохранённой темы
+    const currentTheme = localStorage.getItem('landing-theme') || 'light';
+    if (currentTheme === 'dark') {
+        body.classList.add('dark');
+    }
+
+    // Обработчик переключения темы
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        const newTheme = body.classList.contains('dark') ? 'dark' : 'light';
+        localStorage.setItem('landing-theme', newTheme);
+    });
+
+    // Остальной код (модальные окна, карусель, форма и т.д.) остаётся без изменений
     const formModal = document.getElementById('landing-form-modal');
     const crmUrl = 'https://dev-geniy.github.io/CF/crm.html';
     const hasSubmittedForm = localStorage.getItem('hasSubmittedForm');
 
-    // Функция открытия модального окна
     const openModal = (modal) => {
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
     };
 
-    // Функция закрытия модального окна
     const closeModal = (modal) => {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
     };
 
-    // Плавная прокрутка для ссылок
     document.querySelectorAll('.landing-scroll-link').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
             e.preventDefault();
@@ -28,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Карусель для отзывов
     const carousel = document.querySelector('.landing-testimonials-carousel');
     const prevBtn = document.querySelector('.landing-carousel-prev');
     const nextBtn = document.querySelector('.landing-carousel-next');
@@ -41,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
         carousel.scrollBy({ left: 300, behavior: 'smooth' });
     });
 
-    // Обработка открытия модальных окон (changelog, privacy, contact), исключая ссылки с классом .landing-scroll-link
     document.querySelectorAll('a[href^="#landing-"]:not(.landing-scroll-link)').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -53,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Закрытие модальных окон
     document.querySelectorAll('.landing-modal-close').forEach(close => {
         close.addEventListener('click', () => {
             const modal = close.closest('.landing-modal-overlay');
@@ -61,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Открытие формы только по кнопке и перенаправление, если форма заполнена
     document.querySelectorAll('.landing-cta-btn, .landing-cta-top-btn, .landing-secondary-cta-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             if (!hasSubmittedForm) {
@@ -72,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Обработка формы
     const form = document.getElementById('landing-lead-form');
     const skipBtn = document.querySelector('.landing-form-skip-btn');
 
@@ -90,12 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
             employees: formData.get('employees') || 'Не указано'
         };
 
-        // Сохранение данных формы в localStorage
         localStorage.setItem('formData', JSON.stringify(data));
 
-        // Отправка в Telegram-бота
-        const botToken = '7547438973:AAFr0I-mxvM_6eEDZnHQSZk5fLRYexc1PoE'; // Замените на ваш токен бота
-        const chatId = '7509823175'; // Замените на ваш chat_id
+        const botToken = '7547438973:AAFr0I-mxvM_6eEDZnHQSZk5fLRYexc1PoE';
+        const chatId = '7509823175';
         const message = `
 Новая заявка с Client Flow:
 Имя: ${data.name}
@@ -119,7 +141,6 @@ Telegram: ${data.telegram}
                 })
             });
 
-            // Сохраняем флаг, что форма была отправлена
             localStorage.setItem('hasSubmittedForm', 'true');
             closeModal(formModal);
             window.location.href = crmUrl;
@@ -129,39 +150,22 @@ Telegram: ${data.telegram}
         }
     });
 
-    // Пропуск формы
     skipBtn.addEventListener('click', () => {
         localStorage.setItem('hasSubmittedForm', 'true');
         closeModal(formModal);
         window.location.href = crmUrl;
     });
-});
 
-// Кнопка "Наверх"
-const scrollTopButton = document.querySelector('.landing-scroll-top');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-        scrollTopButton.classList.add('visible');
-    } else {
-        scrollTopButton.classList.remove('visible');
-    }
-});
+    const scrollTopButton = document.querySelector('.landing-scroll-top');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollTopButton.classList.add('visible');
+        } else {
+            scrollTopButton.classList.remove('visible');
+        }
+    });
 
-scrollTopButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// Переключатель темы
-const themeToggle = document.querySelector('.theme-toggle');
-const body = document.body;
-const currentTheme = localStorage.getItem('theme') || 'light';
-
-if (currentTheme === 'dark') {
-    body.classList.add('dark');
-}
-
-themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark');
-    const newTheme = body.classList.contains('dark') ? 'dark' : 'light';
-    localStorage.setItem('theme', newTheme);
+    scrollTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 });
