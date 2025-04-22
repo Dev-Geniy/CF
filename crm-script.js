@@ -141,6 +141,16 @@ function renderClients(filter = 'all', tagFilter = '', dateStart = '', dateEnd =
           <div class="checkbox">
             <input type="checkbox" ${selectedClients.has(globalIndex) ? 'checked' : ''} aria-label="Выбрать клиента">
           </div>
+          <button onclick="sendEmail(${globalIndex})" title="Написать на email" aria-label="Написать на email"><span class="material-icons">email</span></button>
+          <button onclick="addToCalendar(${globalIndex})" title="Добавить в календарь" aria-label="Добавить в календарь"><span class="material-icons">event</span></button>
+          <div class="contact-submenu-wrapper">
+            <button onclick="toggleContactSubmenu(event, ${globalIndex})" title="Написать клиенту" aria-label="Написать клиенту"><span class="material-icons">chat</span></button>
+            <div class="contact-submenu" id="contact-submenu-${globalIndex}">
+              <button onclick="contactClient(${globalIndex}, 'whatsapp')" title="Написать в WhatsApp" aria-label="Написать в WhatsApp"><span class="material-icons">whatsapp</span></button>
+              <button onclick="contactClient(${globalIndex}, 'viber')" title="Написать в Viber" aria-label="Написать в Viber"><span class="material-icons">viber</span></button>
+              <button onclick="contactClient(${globalIndex}, 'telegram')" title="Написать в Telegram" aria-label="Написать в Telegram"><span class="material-icons">telegram</span></button>
+            </div>
+          </div>
           <button onclick="editClient(${globalIndex})" title="Редактировать клиента" aria-label="Редактировать клиента"><span class="material-icons">edit</span></button>
           <button onclick="showConfirmDelete(${globalIndex})" title="Удалить клиента" aria-label="Удалить клиента"><span class="material-icons">delete</span></button>
         </div>
@@ -149,7 +159,7 @@ function renderClients(filter = 'all', tagFilter = '', dateStart = '', dateEnd =
       card.innerHTML = `
         <h3>${escapeHtml(client.name)}</h3>
         ${client.company ? `<p>${escapeHtml(client.company)}</p>` : ''}
-        ${client.email ? `<p><a href="mailto:${escapeHtml(client.email)}">${escapeHtml(client.email)}</a></p>` : ''} <!-- Добавляем отображение email -->
+        ${client.email ? `<p><a href="mailto:${escapeHtml(client.email)}">${escapeHtml(client.email)}</a></p>` : ''}
         ${client.image ? `<img src="${escapeHtml(client.image)}" alt="${escapeHtml(client.name)}" loading="lazy">` : ''}
         ${client.social ? `<p><a href="${escapeHtml(client.social)}" target="_blank">${escapeHtml(client.social.split('/').pop())}</a></p>` : ''}
         ${client.phones?.length ? client.phones.map(phone => `<p>${escapeHtml(phone)}</p>`).join('') : ''}
@@ -160,6 +170,16 @@ function renderClients(filter = 'all', tagFilter = '', dateStart = '', dateEnd =
         <div class="actions">
           <div class="checkbox">
             <input type="checkbox" ${selectedClients.has(globalIndex) ? 'checked' : ''} aria-label="Выбрать клиента">
+          </div>
+          <button onclick="sendEmail(${globalIndex})" title="Написать на email" aria-label="Написать на email"><span class="material-icons">email</span></button>
+          <button onclick="addToCalendar(${globalIndex})" title="Добавить в календарь" aria-label="Добавить в календарь"><span class="material-icons">event</span></button>
+          <div class="contact-submenu-wrapper">
+            <button onclick="toggleContactSubmenu(event, ${globalIndex})" title="Написать клиенту" aria-label="Написать клиенту"><span class="material-icons">chat</span></button>
+            <div class="contact-submenu" id="contact-submenu-${globalIndex}">
+              <button onclick="contactClient(${globalIndex}, 'whatsapp')" title="Написать в WhatsApp" aria-label="Написать в WhatsApp"><span class="material-icons">whatsapp</span></button>
+              <button onclick="contactClient(${globalIndex}, 'viber')" title="Написать в Viber" aria-label="Написать в Viber"><span class="material-icons">viber</span></button>
+              <button onclick="contactClient(${globalIndex}, 'telegram')" title="Написать в Telegram" aria-label="Написать в Telegram"><span class="material-icons">telegram</span></button>
+            </div>
           </div>
           <button onclick="editClient(${globalIndex})" title="Редактировать клиента" aria-label="Редактировать клиента"><span class="material-icons">edit</span></button>
           <button onclick="showConfirmDelete(${globalIndex})" title="Удалить клиента" aria-label="Удалить клиента"><span class="material-icons">delete</span></button>
@@ -199,6 +219,84 @@ function renderClients(filter = 'all', tagFilter = '', dateStart = '', dateEnd =
   updateChart();
   updateBulkActions();
 }
+
+// Новые функции для обработки действий
+window.sendEmail = (index) => {
+  const client = clients[index];
+  if (client.email && isValidEmail(client.email)) {
+    window.location.href = `mailto:${client.email}`;
+  } else {
+    showNotification('Некорректный или отсутствующий email');
+  }
+};
+
+window.addToCalendar = (index) => {
+  const client = clients[index];
+  if (client.deadline) {
+    const date = new Date(client.deadline);
+    // Формируем описание с полной информацией о клиенте
+    const description = `
+      Имя: ${client.name || 'Нет данных'}
+      Компания: ${client.company || 'Нет данных'}
+      Email: ${client.email || 'Нет данных'}
+      Соцсеть: ${client.social || 'Нет данных'}
+      Сайт: ${client.website || 'Нет данных'}
+      Телефоны: ${client.phones?.join(', ') || 'Нет данных'}
+      Теги: ${client.tags?.join(', ') || 'Нет данных'}
+      Заметки: ${client.notes || 'Нет данных'}
+      Статус: ${client.status || 'Нет данных'}
+      Избранный: ${client.favorite ? 'Да' : 'Нет'}
+      Дата создания: ${new Date(client.createdAt).toLocaleString()}
+    `.trim();
+
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(client.name)}&dates=${date.toISOString().replace(/-|:|\.\d\d\d/g, '')}/${date.toISOString().replace(/-|:|\.\d\d\d/g, '')}&details=${encodeURIComponent(description)}`;
+    window.open(googleCalendarUrl, '_blank');
+  } else {
+    showNotification('Укажите дедлайн');
+  }
+};
+
+window.toggleContactSubmenu = (event, index) => {
+  event.stopPropagation(); // Предотвращаем закрытие подменю при клике
+  const submenu = document.getElementById(`contact-submenu-${index}`);
+  submenu.classList.toggle('open');
+
+  // Закрываем подменю при клике вне его
+  const closeSubmenu = (e) => {
+    if (!submenu.contains(e.target) && e.target !== submenu.previousElementSibling) {
+      submenu.classList.remove('open');
+      document.removeEventListener('click', closeSubmenu);
+    }
+  };
+  if (submenu.classList.contains('open')) {
+    document.addEventListener('click', closeSubmenu);
+  }
+};
+
+window.contactClient = (index, platform) => {
+  const client = clients[index];
+  if (!client.phones || client.phones.length === 0) {
+    showNotification('У клиента нет номера телефона');
+    return;
+  }
+
+  const phone = client.phones[0].replace(/[^0-9+]/g, ''); // Берем первый телефон и очищаем от лишних символов
+  let url;
+  switch (platform) {
+    case 'whatsapp':
+      url = `https://wa.me/${phone}`;
+      break;
+    case 'viber':
+      url = `viber://chat?number=${phone}`;
+      break;
+    case 'telegram':
+      url = `https://t.me/${phone}`;
+      break;
+    default:
+      return;
+  }
+  window.open(url, '_blank');
+};
 
 // Bulk actions
 document.getElementById('bulk-actions').addEventListener('click', () => {
@@ -332,7 +430,7 @@ document.getElementById('client-form').addEventListener('submit', (e) => {
     .filter(v => v);
 
   const social = document.getElementById('social').value.trim();
-  const email = document.getElementById('email').value.trim(); // Добавляем email
+  const email = document.getElementById('email').value.trim();
   const website = document.getElementById('website').value.trim();
 
   if (social && !isValidUrl(social)) {
@@ -355,7 +453,7 @@ document.getElementById('client-form').addEventListener('submit', (e) => {
     name: document.getElementById('name').value.trim(),
     company: document.getElementById('company').value.trim(),
     social,
-    email, // Сохраняем email
+    email,
     website,
     phones,
     image: document.getElementById('image').value.trim(),
@@ -404,7 +502,7 @@ window.editClient = (index) => {
   document.getElementById('name').value = client.name;
   document.getElementById('company').value = client.company || '';
   document.getElementById('social').value = client.social || '';
-  document.getElementById('email').value = client.email || ''; // Добавляем email
+  document.getElementById('email').value = client.email || '';
   document.getElementById('website').value = client.website || '';
   const phonesContainer = document.getElementById('phones-container');
   phonesContainer.innerHTML = client.phones?.length ? client.phones.map((phone, i) => `
@@ -510,11 +608,11 @@ document.getElementById('export-btn').addEventListener('click', () => {
     : clients;
 
   const csvContent = "data:text/csv;charset=utf-8,\uFEFF" +
-    "Имя,Компания,Email,Соцсеть,Сайт,Телефоны,Изображение,Теги,Дедлайн,Статус,Заметки,Избранный,Дата создания\n" + // Добавляем Email в заголовок
+    "Имя,Компания,Email,Соцсеть,Сайт,Телефоны,Изображение,Теги,Дедлайн,Статус,Заметки,Избранный,Дата создания\n" +
     clientsToExport.map(c => [
       escapeCsvValue(c.name),
       escapeCsvValue(c.company),
-      escapeCsvValue(c.email), // Добавляем email
+      escapeCsvValue(c.email),
       escapeCsvValue(c.social),
       escapeCsvValue(c.website),
       escapeCsvValue(c.phones?.join(';')),
@@ -583,13 +681,13 @@ document.getElementById('import-btn').addEventListener('click', () => {
           }
           fields.push(currentField);
 
-          if (fields.length < 13) throw new Error('Некорректный формат CSV'); // Обновляем на 13 полей
+          if (fields.length < 13) throw new Error('Некорректный формат CSV');
 
-          const [name, company, email, social, website, phones, image, tags, deadline, status, notes, favorite, createdAt] = fields; // Добавляем email
+          const [name, company, email, social, website, phones, image, tags, deadline, status, notes, favorite, createdAt] = fields;
           return {
             name: name.replace(/^"|"$/g, '').replace(/""/g, '"') || '',
             company: company.replace(/^"|"$/g, '').replace(/""/g, '"') || '',
-            email: email.replace(/^"|"$/g, '').replace(/""/g, '"') || '', // Добавляем email
+            email: email.replace(/^"|"$/g, '').replace(/""/g, '"') || '',
             social: social.replace(/^"|"$/g, '').replace(/""/g, '"') || '',
             website: website.replace(/^"|"$/g, '').replace(/""/g, '"') || '',
             phones: phones.replace(/^"|"$/g, '').replace(/""/g, '"').split(';').filter(p => p) || [],
@@ -617,29 +715,6 @@ document.getElementById('import-btn').addEventListener('click', () => {
     reader.readAsText(file, 'UTF-8');
   };
   input.click();
-});
-
-// Send email
-document.getElementById('send-email').addEventListener('click', () => {
-  const email = document.getElementById('email').value; // Используем поле email
-  if (email && isValidEmail(email)) {
-    window.location.href = `mailto:${email}`;
-  } else {
-    showNotification('Некорректный или отсутствующий email');
-  }
-});
-
-// Add to calendar
-document.getElementById('add-to-calendar').addEventListener('click', () => {
-  const deadline = document.getElementById('deadline').value;
-  const name = document.getElementById('name').value;
-  if (deadline) {
-    const date = new Date(deadline);
-    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(name)}&dates=${date.toISOString().replace(/-|:|\.\d\d\d/g, '')}/${date.toISOString().replace(/-|:|\.\d\d\d/g, '')}`;
-    window.open(googleCalendarUrl, '_blank');
-  } else {
-    showNotification('Укажите дедлайн');
-  }
 });
 
 // Stats
