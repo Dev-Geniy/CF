@@ -1327,3 +1327,37 @@ body:not(.dark) #bug-report-text:focus {
     order: 1;
   }
 }
+
+/* Социальные иконки в футере */
+.footer-social .social-icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.footer-social .social-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.footer-social .social-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Инвертирование цвета иконок в зависимости от темы */
+body.light .footer-social .social-icon {
+  filter: invert(0); /* Чёрный цвет в светлой теме */
+}
+
+body.dark .footer-social .social-icon {
+  filter: invert(1); /* Белый цвет в тёмной теме */
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .footer-social .social-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
