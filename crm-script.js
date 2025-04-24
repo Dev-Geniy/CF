@@ -969,14 +969,128 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Управление чат-ботом
+// Управление чат-ботом
 const chatbotBtn = document.getElementById('chatbot-btn');
 const chatbotWindow = document.getElementById('chatbot-window');
 const chatbotClose = document.getElementById('chatbot-close');
+const chatbotMessages = document.getElementById('chatbot-messages');
+const chatbotInput = document.getElementById('chatbot-input');
+const chatbotSend = document.getElementById('chatbot-send');
+const promptToggle = document.getElementById('prompt-toggle');
 
+// Открытие/закрытие окна чат-бота
 chatbotBtn.addEventListener('click', () => {
   chatbotWindow.style.display = 'block'; // Показываем окно чат-бота
+  chatbotInput.focus(); // Фокус на поле ввода
+  scrollToBottom(); // Прокрутка вниз при открытии
 });
 
 chatbotClose.addEventListener('click', () => {
   chatbotWindow.style.display = 'none'; // Скрываем окно чат-бота
 });
+
+// Прокрутка сообщений вниз
+function scrollToBottom() {
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+// Отправка сообщения
+chatbotSend.addEventListener('click', sendMessage);
+
+chatbotInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+});
+
+// Переключение режима подсказок
+promptToggle.addEventListener('change', () => {
+  localStorage.setItem('promptMode', promptToggle.checked ? 'detailed' : 'simple');
+});
+
+// Пример базы знаний для бота
+const knowledgeBase = {
+  'привет': 'Привет! Чем могу помочь?',
+  'как добавить клиента': 'Нажми на кнопку "Добавить клиента" в левом нижнем углу. Заполни форму и сохрани.',
+  'как экспортировать данные': 'Нажми на кнопку "Экспорт" вверху. Данные сохранятся в CSV-файл.',
+  'как импортировать данные': 'Нажми на кнопку "Импорт" вверху, выбери CSV-файл и подтверди.',
+  'как удалить клиента': 'Найди клиента в списке, нажми на иконку корзины в его карточке и подтверди удаление.',
+  'поиск': 'Введи имя или компанию клиента в строку поиска вверху, чтобы быстро найти нужного клиента.',
+  'фильтры': 'Используй фильтры (все, активные, приоритетные, избранные) или выбери тег/даты для сортировки клиентов.',
+  'дедлайн': 'При добавлении клиента укажи дедлайн в форме. Если дедлайн истёк, прогресс-бар станет красным.',
+  'избранное': 'Отметь клиента как избранного в форме редактирования, чтобы добавить его в избранные.',
+  'график': 'Открой боковую панель, чтобы увидеть график роста клиентов по месяцам.',
+  'тема': 'Переключи тему (светлая/тёмная) в боковой панели.',
+  'уведомления': 'Если дедлайн клиента наступает через 24 часа, ты получишь уведомление (если разрешено в браузере).',
+  'нет ответа': 'Извини, я не понял вопроса. Попробуй перефразировать или напиши "помощь" для списка команд.'
+};
+
+// Функция отправки сообщения
+function sendMessage() {
+  const messageText = chatbotInput.value.trim();
+  if (!messageText) return;
+
+  // Добавляем сообщение пользователя
+  const userMessage = document.createElement('div');
+  userMessage.classList.add('message', 'user-message');
+  userMessage.textContent = messageText;
+  chatbotMessages.appendChild(userMessage);
+
+  // Очищаем поле ввода
+  chatbotInput.value = '';
+
+  // Прокрутка вниз
+  scrollToBottom();
+
+  // Ответ бота
+  setTimeout(() => {
+    const botResponse = getBotResponse(messageText);
+    const botMessage = document.createElement('div');
+    botMessage.classList.add('message', 'bot-message');
+    botMessage.innerHTML = botResponse; // Используем innerHTML для поддержки форматирования (например, списков)
+    chatbotMessages.appendChild(botMessage);
+    scrollToBottom();
+  }, 500); // Задержка для имитации "мышления" бота
+}
+
+// Логика ответа бота
+function getBotResponse(message) {
+  const normalizedMessage = message.toLowerCase().trim();
+  const promptMode = localStorage.getItem('promptMode') || 'simple';
+
+  // Проверка на команду "помощь"
+  if (normalizedMessage.includes('помощь')) {
+    return promptMode === 'detailed' ? `
+      <p>Я могу помочь с управлением клиентами! Вот список команд:</p>
+      <ul>
+        <li>Как добавить клиента</li>
+        <li>Как экспортировать данные</li>
+        <li>Как импортировать данные</li>
+        <li>Как удалить клиента</li>
+        <li>Поиск</li>
+        <li>Фильтры</li>
+        <li>Дедлайн</li>
+        <li>Избранное</li>
+        <li>График</li>
+        <li>Тема</li>
+        <li>Уведомления</li>
+      </ul>
+      <p>Напиши любой вопрос или команду из списка!</p>
+    ` : 'Напиши "как добавить клиента", "поиск", "фильтры" и т.д. для подсказок.';
+  }
+
+  // Поиск ответа в базе знаний
+  for (const key in knowledgeBase) {
+    if (normalizedMessage.includes(key)) {
+      return promptMode === 'detailed' ? `<p>${knowledgeBase[key]}</p>` : knowledgeBase[key];
+    }
+  }
+
+  return knowledgeBase['нет ответа'];
+}
+
+// Инициализация режима подсказок при загрузке
+if (localStorage.getItem('promptMode') === 'detailed') {
+  promptToggle.checked = true;
+}
