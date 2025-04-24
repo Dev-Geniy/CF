@@ -985,6 +985,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Функция для экранирования HTML (переносим из основного кода)
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
     // Устанавливаем начальную видимость
     chatbotWindow.style.display = 'none';
     chatbotBtn.style.display = 'block';
