@@ -968,3 +968,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// Управление чат-ботом
+const chatbotBtn = document.getElementById('chatbot-btn');
+const chatbotWindow = document.getElementById('chatbot-window');
+const chatbotClose = document.getElementById('chatbot-close');
+
+chatbotBtn.addEventListener('click', () => {
+  chatbotWindow.style.display = 'block'; // Показываем окно чат-бота
+});
+
+chatbotClose.addEventListener('click', () => {
+  chatbotWindow.style.display = 'none'; // Скрываем окно чат-бота
+});
