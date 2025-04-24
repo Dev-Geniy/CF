@@ -967,3 +967,256 @@ document.addEventListener('DOMContentLoaded', () => {
     showNotification('Хранилище недоступно на устройстве');
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Элементы DOM
+    const chatbotBtn = document.getElementById('chatbot-btn');
+    const chatbotWindow = document.getElementById('chatbot-window');
+    const chatbotClose = document.getElementById('chatbot-close');
+    const chatbotInput = document.getElementById('chatbot-input');
+    const chatbotSend = document.getElementById('chatbot-send');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+    const chatbotHeader = document.querySelector('.chatbot-header');
+    const promptToggle = document.getElementById('prompt-toggle');
+
+    // Открытие чат-бота
+    chatbotBtn.addEventListener('click', () => {
+        chatbotWindow.style.display = 'block';
+        chatbotWindow.style.bottom = '10px';
+        chatbotWindow.style.right = '20px';
+        chatbotWindow.style.top = 'auto';
+        chatbotWindow.style.left = 'auto';
+        chatbotBtn.style.display = 'none';
+    });
+
+    // Закрытие чат-бота
+    chatbotClose.addEventListener('click', () => {
+        chatbotWindow.style.display = 'none';
+        chatbotBtn.style.display = 'block';
+    });
+
+    // Анимация тряски кнопки каждые 5 секунд
+    setInterval(() => {
+        chatbotBtn.classList.add('shake');
+        setTimeout(() => chatbotBtn.classList.remove('shake'), 500);
+        setTimeout(() => {
+            chatbotBtn.classList.add('shake');
+            setTimeout(() => chatbotBtn.classList.remove('shake'), 500);
+        }, 1000);
+    }, 5000);
+
+    // Добавление сообщения в чат
+    function addMessage(content, isBot = false) {
+        const message = document.createElement('div');
+        message.classList.add('message');
+        message.classList.add(isBot ? 'bot-message' : 'user-message');
+        message.innerHTML = isBot ? formatBotResponse(content) : content;
+        chatbotMessages.appendChild(message);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    // Отправка сообщения
+    async function sendMessage() {
+        const userInput = chatbotInput.value.trim();
+        if (!userInput) return;
+
+        await sendChatbotQuestionToTelegram(userInput);
+        addMessage(userInput);
+        chatbotInput.value = '';
+
+        try {
+            const response = await getBotResponse(userInput);
+            setTimeout(() => {
+                addMessage(response, true);
+            }, 500);
+        } catch (error) {
+            console.error('Ошибка в sendMessage:', error);
+            setTimeout(() => {
+                addMessage(`Извините, я не смог обработать ваш запрос. Попробуйте перефразировать или обратитесь в техподдержку! 
+                    <div class="contacts-block">
+                        <p>Нужна помощь? Свяжитесь с менеджером техподдержки: 
+                            <a href="https://t.me/clientflow_support" target="_blank">
+                                <img src="https://img.icons8.com/ios-filled/20/7c4dff/telegram-app.png" alt="Telegram"> Telegram
+                            </a>
+                        </p>
+                    </div>`, true);
+            }, 500);
+        }
+    }
+
+    chatbotSend.addEventListener('click', sendMessage);
+    chatbotInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    // Получение ответа от Pollinations.AI
+    async function getBotResponse(input) {
+        let prompt;
+        if (promptToggle.checked) {
+            // Промт с контекстом CRM, если тумблер включён
+            prompt = `Ты - чат-бот Ai Client Flow, представляющий CRM-систему для малого бизнеса и фрилансеров. Отвечай на вопрос: "${input}" в контексте управления клиентами, автоматизации бизнеса или работы с CRM. Ответь на русском, кратко и естественно. В конце добавь: "Нужна помощь? Свяжитесь с менеджером техподдержки в Telegram!"`;
+        } else {
+            // Чистый промт, если тумблер выключен
+            prompt = `Ответь на вопрос: "${input}". Ответь на русском, кратко и естественно. В конце добавь: "Нужна помощь? Свяжитесь с менеджером техподдержки в Telegram!"`;
+        }
+        
+        const trimmedPrompt = prompt.length > 1500 ? prompt.substring(0, 1500) + "..." : prompt;
+        const seed = Math.floor(Math.random() * 1000);
+        const url = `https://text.pollinations.ai/${encodeURIComponent(trimmedPrompt)}?model=mistral&seed=${seed}`;
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Ошибка API: ${response.status} - ${response.statusText}`);
+        }
+
+        const text = await response.text();
+        return text.trim() || "Извините, я не смог найти ответ. Задайте вопрос иначе или свяжитесь с нами! Нужна помощь? Свяжитесь с менеджером техподдержки в Telegram!";
+    }
+
+    // Форматирование ответа бота
+    function formatBotResponse(response) {
+        let paragraphs = response.split(/(\n|\.\s*\n)/).filter(line => line.trim().length > 0 && !line.match(/^\.\s*$/));
+        
+        const contactRegex = /Нужна помощь\? Свяжитесь с менеджером техподдержки в Telegram!/;
+        let contacts = '';
+        let mainText = response;
+
+        const contactMatch = response.match(contactRegex);
+        if (contactMatch) {
+            contacts = contactMatch[0];
+            mainText = response.replace(contactRegex, '').trim();
+        }
+        paragraphs = mainText.split(/(\n|\.\s*\n)/).filter(line => line.trim().length > 0 && !line.match(/^\.\s*$/));
+
+        let formattedText = '';
+        let inList = false;
+        let listItems = [];
+
+        paragraphs.forEach((line, index) => {
+            let cleanedLine = line.replace(/\*\*/g, '').trim();
+            if (cleanedLine.match(/^\d+\.\s+/) || cleanedLine.match(/^-\s+/)) {
+                if (!inList) {
+                    inList = true;
+                    if (formattedText) formattedText += '</p>';
+                    formattedText += '<ul>';
+                }
+                const listItem = cleanedLine.replace(/^\d+\.\s+|-\s+/, '').trim();
+                listItems.push(`<li>${listItem}</li>`);
+            } else {
+                if (inList) {
+                    inList = false;
+                    formattedText += listItems.join('') + '</ul><p>';
+                    listItems = [];
+                } else if (index > 0) {
+                    formattedText += '</p><p>';
+                }
+                formattedText += cleanedLine;
+            }
+        });
+
+        if (inList) {
+            formattedText += listItems.join('') + '</ul>';
+        } else if (formattedText) {
+            formattedText = '<p>' + formattedText + '</p>';
+        }
+
+        if (contacts) {
+            formattedText += `
+                <div class="contacts-block">
+                    <p>Нужна помощь? Свяжитесь с менеджером техподдержки: 
+                        <a href="https://t.me/clientflow_support" target="_blank">
+                            <img src="https://img.icons8.com/ios-filled/20/7c4dff/telegram-app.png" alt="Telegram"> Telegram
+                        </a>
+                    </p>
+                </div>
+            `;
+        }
+
+        return formattedText;
+    }
+
+    // Отправка запросов в Telegram
+    async function sendChatbotQuestionToTelegram(question) {
+        const botToken = '7688806335:AAFhJjLnaT_Zcsi1TE9vvazOzqWTGf_goIw'; // Замените на ваш токен
+        const chatId = '7509823175'; // Замените на ваш chatId
+        const message = `*❓ Новый запрос в чат-бот:*\n*Дата:* ${new Date().toISOString()}\n*Запрос:* ${question}`;
+        const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+
+        try {
+            const response = await fetch(telegramUrl, {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            if (!data.ok) {
+                console.error('Ошибка Telegram:', data);
+            }
+        } catch (error) {
+            console.error('Ошибка при отправке вопроса в Telegram:', error);
+        }
+    }
+
+    // Логика перетаскивания окна
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+
+    chatbotHeader.addEventListener('mousedown', startDragging);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDragging);
+
+    function startDragging(e) {
+        initialX = e.clientX - currentX;
+        initialY = e.clientY - currentY;
+        isDragging = true;
+        chatbotWindow.style.transition = 'none';
+    }
+
+    function drag(e) {
+        if (isDragging) {
+            e.preventDefault();
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+
+            currentX = Math.max(0, Math.min(currentX, window.innerWidth - chatbotWindow.offsetWidth));
+            currentY = Math.max(0, Math.min(currentY, window.innerHeight - chatbotWindow.offsetHeight));
+
+            chatbotWindow.style.left = currentX + 'px';
+            chatbotWindow.style.top = currentY + 'px';
+            chatbotWindow.style.bottom = 'auto';
+            chatbotWindow.style.right = 'auto';
+        }
+    }
+
+    function stopDragging() {
+        isDragging = false;
+        chatbotWindow.style.transition = 'all 0.3s ease';
+    }
+
+    // Инициализация позиции
+    function initializeChatbotPosition() {
+        currentX = window.innerWidth - chatbotWindow.offsetWidth - 20;
+        currentY = window.innerHeight - chatbotWindow.offsetHeight - 100;
+        chatbotWindow.style.left = currentX + 'px';
+        chatbotWindow.style.top = currentY + 'px';
+    }
+
+    window.addEventListener('load', initializeChatbotPosition);
+    window.addEventListener('resize', initializeChatbotPosition);
+});
