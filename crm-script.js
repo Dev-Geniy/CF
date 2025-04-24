@@ -979,14 +979,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatbotHeader = document.querySelector('.chatbot-header');
     const promptToggle = document.getElementById('prompt-toggle');
 
+    // Проверка на наличие всех элементов
+    if (!chatbotBtn || !chatbotWindow || !chatbotClose || !chatbotInput || !chatbotSend || !chatbotMessages || !chatbotHeader || !promptToggle) {
+        console.error('Один из элементов чат-бота не найден в DOM');
+        return;
+    }
+
+    // Устанавливаем начальную видимость
+    chatbotWindow.style.display = 'none';
+    chatbotBtn.style.display = 'block';
+
     // Открытие чат-бота
     chatbotBtn.addEventListener('click', () => {
         chatbotWindow.style.display = 'block';
-        chatbotWindow.style.bottom = '10px';
-        chatbotWindow.style.right = '20px';
-        chatbotWindow.style.top = 'auto';
-        chatbotWindow.style.left = 'auto';
         chatbotBtn.style.display = 'none';
+        // Устанавливаем начальную позицию при открытии
+        initializeChatbotPosition();
+        // Фокус на поле ввода
+        chatbotInput.focus();
     });
 
     // Закрытие чат-бота
@@ -997,12 +1007,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Анимация тряски кнопки каждые 5 секунд
     setInterval(() => {
-        chatbotBtn.classList.add('shake');
-        setTimeout(() => chatbotBtn.classList.remove('shake'), 500);
-        setTimeout(() => {
+        if (chatbotBtn.style.display !== 'none') {
             chatbotBtn.classList.add('shake');
             setTimeout(() => chatbotBtn.classList.remove('shake'), 500);
-        }, 1000);
+            setTimeout(() => {
+                chatbotBtn.classList.add('shake');
+                setTimeout(() => chatbotBtn.classList.remove('shake'), 500);
+            }, 1000);
+        }
     }, 5000);
 
     // Добавление сообщения в чат
@@ -1010,7 +1022,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const message = document.createElement('div');
         message.classList.add('message');
         message.classList.add(isBot ? 'bot-message' : 'user-message');
-        message.innerHTML = isBot ? formatBotResponse(content) : content;
+        message.innerHTML = isBot ? formatBotResponse(content) : escapeHtml(content);
         chatbotMessages.appendChild(message);
         chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
     }
@@ -1020,6 +1032,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const userInput = chatbotInput.value.trim();
         if (!userInput) return;
 
+        // Отправляем запрос в Telegram
         await sendChatbotQuestionToTelegram(userInput);
         addMessage(userInput);
         chatbotInput.value = '';
@@ -1172,16 +1185,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Логика перетаскивания окна
     let isDragging = false;
-    let currentX;
-    let currentY;
-    let initialX;
-    let initialY;
+    let currentX = 0;
+    let currentY = 0;
+    let initialX = 0;
+    let initialY = 0;
 
     chatbotHeader.addEventListener('mousedown', startDragging);
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', stopDragging);
 
     function startDragging(e) {
+        // Предотвращаем выделение текста при перетаскивании
+        e.preventDefault();
         initialX = e.clientX - currentX;
         initialY = e.clientY - currentY;
         isDragging = true;
@@ -1194,6 +1209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentX = e.clientX - initialX;
             currentY = e.clientY - initialY;
 
+            // Ограничиваем перемещение в пределах окна браузера
             currentX = Math.max(0, Math.min(currentX, window.innerWidth - chatbotWindow.offsetWidth));
             currentY = Math.max(0, Math.min(currentY, window.innerHeight - chatbotWindow.offsetHeight));
 
@@ -1212,11 +1228,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Инициализация позиции
     function initializeChatbotPosition() {
         currentX = window.innerWidth - chatbotWindow.offsetWidth - 20;
-        currentY = window.innerHeight - chatbotWindow.offsetHeight - 100;
+        currentY = window.innerHeight - chatbotWindow.offsetHeight - 10;
         chatbotWindow.style.left = currentX + 'px';
         chatbotWindow.style.top = currentY + 'px';
+        chatbotWindow.style.bottom = 'auto';
+        chatbotWindow.style.right = 'auto';
     }
 
-    window.addEventListener('load', initializeChatbotPosition);
-    window.addEventListener('resize', initializeChatbotPosition);
+    // Обновляем позицию при изменении размера окна
+    window.addEventListener('resize', () => {
+        if (chatbotWindow.style.display === 'block') {
+            initializeChatbotPosition();
+        }
+    });
+
+    // Инициализируем позицию при загрузке
+    initializeChatbotPosition();
 });
