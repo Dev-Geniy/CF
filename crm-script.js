@@ -969,128 +969,232 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Управление чат-ботом
-// Управление чат-ботом
-const chatbotBtn = document.getElementById('chatbot-btn');
-const chatbotWindow = document.getElementById('chatbot-window');
-const chatbotClose = document.getElementById('chatbot-close');
-const chatbotMessages = document.getElementById('chatbot-messages');
-const chatbotInput = document.getElementById('chatbot-input');
-const chatbotSend = document.getElementById('chatbot-send');
-const promptToggle = document.getElementById('prompt-toggle');
+// Чат-бот (независимый модуль)
+document.addEventListener('DOMContentLoaded', () => {
+    // Элементы DOM для чат-бота
+    const chatBotBtn = document.getElementById('chatbot-btn');
+    const chatBotWindow = document.getElementById('chatbot-window');
+    const chatBotClose = document.getElementById('chatbot-close');
+    const chatBotInput = document.getElementById('chatbot-input');
+    const chatBotSend = document.getElementById('chatbot-send');
+    const chatBotMessages = document.getElementById('chatbot-messages');
+    const chatBotPromptToggle = document.getElementById('prompt-toggle');
 
-// Открытие/закрытие окна чат-бота
-chatbotBtn.addEventListener('click', () => {
-  chatbotWindow.style.display = 'block'; // Показываем окно чат-бота
-  chatbotInput.focus(); // Фокус на поле ввода
-  scrollToBottom(); // Прокрутка вниз при открытии
-});
-
-chatbotClose.addEventListener('click', () => {
-  chatbotWindow.style.display = 'none'; // Скрываем окно чат-бота
-});
-
-// Прокрутка сообщений вниз
-function scrollToBottom() {
-  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-}
-
-// Отправка сообщения
-chatbotSend.addEventListener('click', sendMessage);
-
-chatbotInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-});
-
-// Переключение режима подсказок
-promptToggle.addEventListener('change', () => {
-  localStorage.setItem('promptMode', promptToggle.checked ? 'detailed' : 'simple');
-});
-
-// Пример базы знаний для бота
-const knowledgeBase = {
-  'привет': 'Привет! Чем могу помочь?',
-  'как добавить клиента': 'Нажми на кнопку "Добавить клиента" в левом нижнем углу. Заполни форму и сохрани.',
-  'как экспортировать данные': 'Нажми на кнопку "Экспорт" вверху. Данные сохранятся в CSV-файл.',
-  'как импортировать данные': 'Нажми на кнопку "Импорт" вверху, выбери CSV-файл и подтверди.',
-  'как удалить клиента': 'Найди клиента в списке, нажми на иконку корзины в его карточке и подтверди удаление.',
-  'поиск': 'Введи имя или компанию клиента в строку поиска вверху, чтобы быстро найти нужного клиента.',
-  'фильтры': 'Используй фильтры (все, активные, приоритетные, избранные) или выбери тег/даты для сортировки клиентов.',
-  'дедлайн': 'При добавлении клиента укажи дедлайн в форме. Если дедлайн истёк, прогресс-бар станет красным.',
-  'избранное': 'Отметь клиента как избранного в форме редактирования, чтобы добавить его в избранные.',
-  'график': 'Открой боковую панель, чтобы увидеть график роста клиентов по месяцам.',
-  'тема': 'Переключи тему (светлая/тёмная) в боковой панели.',
-  'уведомления': 'Если дедлайн клиента наступает через 24 часа, ты получишь уведомление (если разрешено в браузере).',
-  'нет ответа': 'Извини, я не понял вопроса. Попробуй перефразировать или напиши "помощь" для списка команд.'
-};
-
-// Функция отправки сообщения
-function sendMessage() {
-  const messageText = chatbotInput.value.trim();
-  if (!messageText) return;
-
-  // Добавляем сообщение пользователя
-  const userMessage = document.createElement('div');
-  userMessage.classList.add('message', 'user-message');
-  userMessage.textContent = messageText;
-  chatbotMessages.appendChild(userMessage);
-
-  // Очищаем поле ввода
-  chatbotInput.value = '';
-
-  // Прокрутка вниз
-  scrollToBottom();
-
-  // Ответ бота
-  setTimeout(() => {
-    const botResponse = getBotResponse(messageText);
-    const botMessage = document.createElement('div');
-    botMessage.classList.add('message', 'bot-message');
-    botMessage.innerHTML = botResponse; // Используем innerHTML для поддержки форматирования (например, списков)
-    chatbotMessages.appendChild(botMessage);
-    scrollToBottom();
-  }, 500); // Задержка для имитации "мышления" бота
-}
-
-// Логика ответа бота
-function getBotResponse(message) {
-  const normalizedMessage = message.toLowerCase().trim();
-  const promptMode = localStorage.getItem('promptMode') || 'simple';
-
-  // Проверка на команду "помощь"
-  if (normalizedMessage.includes('помощь')) {
-    return promptMode === 'detailed' ? `
-      <p>Я могу помочь с управлением клиентами! Вот список команд:</p>
-      <ul>
-        <li>Как добавить клиента</li>
-        <li>Как экспортировать данные</li>
-        <li>Как импортировать данные</li>
-        <li>Как удалить клиента</li>
-        <li>Поиск</li>
-        <li>Фильтры</li>
-        <li>Дедлайн</li>
-        <li>Избранное</li>
-        <li>График</li>
-        <li>Тема</li>
-        <li>Уведомления</li>
-      </ul>
-      <p>Напиши любой вопрос или команду из списка!</p>
-    ` : 'Напиши "как добавить клиента", "поиск", "фильтры" и т.д. для подсказок.';
-  }
-
-  // Поиск ответа в базе знаний
-  for (const key in knowledgeBase) {
-    if (normalizedMessage.includes(key)) {
-      return promptMode === 'detailed' ? `<p>${knowledgeBase[key]}</p>` : knowledgeBase[key];
+    // Проверка наличия всех элементов
+    if (!chatBotBtn || !chatBotWindow || !chatBotClose || !chatBotInput || !chatBotSend || !chatBotMessages || !chatBotPromptToggle) {
+        console.error('Один из элементов чат-бота не найден в DOM');
+        return;
     }
-  }
 
-  return knowledgeBase['нет ответа'];
-}
+    // Функция экранирования HTML (чтобы избежать XSS, переиспользуем из основного кода)
+    function escapeChatBotHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
 
-// Инициализация режима подсказок при загрузке
-if (localStorage.getItem('promptMode') === 'detailed') {
-  promptToggle.checked = true;
-}
+    // Инициализация состояния
+    chatBotWindow.style.display = 'none';
+    chatBotBtn.style.display = 'block';
+
+    // Открытие чат-бота
+    chatBotBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Предотвращаем влияние на другие элементы (например, боковую панель)
+        chatBotWindow.style.display = 'block';
+        chatBotBtn.style.display = 'none';
+        chatBotInput.focus();
+        scrollChatToBottom();
+    });
+
+    // Закрытие чат-бота
+    chatBotClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        chatBotWindow.style.display = 'none';
+        chatBotBtn.style.display = 'block';
+    });
+
+    // Предотвращаем закрытие чат-бота при клике внутри него
+    chatBotWindow.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // Анимация тряски кнопки каждые 5 секунд
+    setInterval(() => {
+        if (chatBotBtn.style.display !== 'none') {
+            chatBotBtn.classList.add('shake');
+        }
+    }, 5000);
+
+    // Прокрутка сообщений вниз
+    function scrollChatToBottom() {
+        chatBotMessages.scrollTop = chatBotMessages.scrollHeight;
+    }
+
+    // Добавление сообщения в чат
+    function addChatMessage(content, isBot = false) {
+        const message = document.createElement('div');
+        message.classList.add('message');
+        message.classList.add(isBot ? 'bot-message' : 'user-message');
+        message.innerHTML = isBot ? formatChatBotResponse(content) : escapeChatBotHtml(content);
+        chatBotMessages.appendChild(message);
+        scrollChatToBottom();
+    }
+
+    // Форматирование ответа бота
+    function formatChatBotResponse(response) {
+        let paragraphs = response.split(/(\n|\.\s*\n)/).filter(line => line.trim().length > 0 && !line.match(/^\.\s*$/));
+        
+        const contactRegex = /Нужна помощь\? Свяжитесь с менеджером техподдержки в Telegram!/;
+        let contacts = '';
+        let mainText = response;
+
+        const contactMatch = response.match(contactRegex);
+        if (contactMatch) {
+            contacts = contactMatch[0];
+            mainText = response.replace(contactRegex, '').trim();
+        }
+        paragraphs = mainText.split(/(\n|\.\s*\n)/).filter(line => line.trim().length > 0 && !line.match(/^\.\s*$/));
+
+        let formattedText = '';
+        let inList = false;
+        let listItems = [];
+
+        paragraphs.forEach((line, index) => {
+            let cleanedLine = line.replace(/\*\*/g, '').trim();
+            if (cleanedLine.match(/^\d+\.\s+/) || cleanedLine.match(/^-\s+/)) {
+                if (!inList) {
+                    inList = true;
+                    if (formattedText) formattedText += '</p>';
+                    formattedText += '<ul>';
+                }
+                const listItem = cleanedLine.replace(/^\d+\.\s+|-\s+/, '').trim();
+                listItems.push(`<li>${listItem}</li>`);
+            } else {
+                if (inList) {
+                    inList = false;
+                    formattedText += listItems.join('') + '</ul><p>';
+                    listItems = [];
+                } else if (index > 0) {
+                    formattedText += '</p><p>';
+                }
+                formattedText += cleanedLine;
+            }
+        });
+
+        if (inList) {
+            formattedText += listItems.join('') + '</ul>';
+        } else if (formattedText) {
+            formattedText = '<p>' + formattedText + '</p>';
+        }
+
+        if (contacts) {
+            formattedText += `
+                <div class="contacts-block">
+                    <p>Нужна помощь? Свяжитесь с менеджером техподдержки: 
+                        <a href="https://t.me/clientflow_support" target="_blank">
+                            <img src="https://img.icons8.com/ios-filled/20/7c4dff/telegram-app.png" alt="Telegram"> Telegram
+                        </a>
+                    </p>
+                </div>
+            `;
+        }
+
+        return formattedText;
+    }
+
+    // Получение ответа от Pollinations AI
+    async function getChatBotResponse(input) {
+        let prompt;
+        if (chatBotPromptToggle.checked) {
+            prompt = `Ты - чат-бот Ai Client Flow, представляющий CRM-систему для малого бизнеса и фрилансеров. Отвечай на вопрос: "${input}" в контексте управления клиентами, автоматизации бизнеса или работы с CRM. Ответь на русском, кратко и естественно. В конце добавь: "Нужна помощь? Свяжитесь с менеджером техподдержки в Telegram!"`;
+        } else {
+            prompt = `Ответь на вопрос: "${input}". Ответь на русском, кратко и естественно. В конце добавь: "Нужна помощь? Свяжитесь с менеджером техподдержки в Telegram!"`;
+        }
+
+        const trimmedPrompt = prompt.length > 1500 ? prompt.substring(0, 1500) + "..." : prompt;
+        const seed = Math.floor(Math.random() * 1000);
+        const url = `https://text.pollinations.ai/${encodeURIComponent(trimmedPrompt)}?model=mistral&seed=${seed}`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка API Pollinations: ${response.status} - ${response.statusText}`);
+            }
+
+            const text = await response.text();
+            return text.trim() || "Извините, я не смог найти ответ. Задайте вопрос иначе или свяжитесь с нами! Нужна помощь? Свяжитесь с менеджером техподдержки в Telegram!";
+        } catch (error) {
+            console.error('Ошибка при запросе к Pollinations AI:', error);
+            return `Извините, я не смог обработать ваш запрос. Попробуйте перефразировать или обратитесь в техподдержку! 
+                    <div class="contacts-block">
+                        <p>Нужна помощь? Свяжитесь с менеджером техподдержки: 
+                            <a href="https://t.me/clientflow_support" target="_blank">
+                                <img src="https://img.icons8.com/ios-filled/20/7c4dff/telegram-app.png" alt="Telegram"> Telegram
+                            </a>
+                        </p>
+                    </div>`;
+        }
+    }
+
+    // Отправка сообщения
+    async function sendChatMessage() {
+        const userInput = chatBotInput.value.trim();
+        if (!userInput) return;
+
+        // Добавляем сообщение пользователя
+        addChatMessage(userInput);
+
+        // Очищаем поле ввода
+        chatBotInput.value = '';
+
+        // Получаем и отображаем ответ бота
+        try {
+            const response = await getChatBotResponse(userInput);
+            setTimeout(() => {
+                addChatMessage(response, true);
+            }, 500);
+        } catch (error) {
+            console.error('Ошибка в sendChatMessage:', error);
+            setTimeout(() => {
+                addChatMessage(`Извините, я не смог обработать ваш запрос. Попробуйте перефразировать или обратитесь в техподдержку! 
+                    <div class="contacts-block">
+                        <p>Нужна помощь? Свяжитесь с менеджером техподдержки: 
+                            <a href="https://t.me/clientflow_support" target="_blank">
+                                <img src="https://img.icons8.com/ios-filled/20/7c4dff/telegram-app.png" alt="Telegram"> Telegram
+                            </a>
+                        </p>
+                    </div>`, true);
+            }, 500);
+        }
+    }
+
+    // Обработчики отправки сообщения
+    chatBotSend.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sendChatMessage();
+    });
+
+    chatBotInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.stopPropagation();
+            sendChatMessage();
+        }
+    });
+
+    // Сохранение состояния тумблера
+    chatBotPromptToggle.addEventListener('change', () => {
+        localStorage.setItem('chatBotPromptMode', chatBotPromptToggle.checked ? 'detailed' : 'simple');
+    });
+
+    // Восстановление состояния тумблера при загрузке
+    if (localStorage.getItem('chatBotPromptMode') === 'detailed') {
+        chatBotPromptToggle.checked = true;
+    }
+});
