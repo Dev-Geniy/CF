@@ -459,6 +459,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
 </div>
 
+<!-- Кнопка чат-бота -->
+<div class="chatbot-btn" id="chatbot-btn">
+    <span class="material-icons chat-icon">chat</span>
+</div>
+
+<!-- Окно чат-бота -->
+<div class="chatbot-window" id="chatbot-window">
+    <div class="chatbot-header">
+        <h3>Ai Client Flow</h3>
+        <div class="prompt-toggle">
+            <label class="toggle-label">
+                <input type="checkbox" id="prompt-toggle" checked>
+                <span class="toggle-slider"></span>
+                Кастомные промты для CRM
+            </label>
+        </div>
+        <span class="chatbot-close material-icons" id="chatbot-close">close</span>
+    </div>
+    <div class="chatbot-messages-container">
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">Здравствуйте! Я чат-бот Ai Client Flow. Готов помочь с вопросами о нашей CRM-системе для малого бизнеса и фрилансеров. Что вас интересует?</div>
+        </div>
+    </div>
+    <div class="chatbot-input">
+        <input type="text" id="chatbot-input" placeholder="Введите ваш вопрос...">
+        <button id="chatbot-send" class="gradient-btn">Отправить</button>
+    </div>
+</div>
+  
     <!-- В конце <body> в index.html -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
